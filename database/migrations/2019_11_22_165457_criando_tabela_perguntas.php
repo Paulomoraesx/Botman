@@ -15,6 +15,8 @@ class CriandoTabelaPerguntas extends Migration
     {
         Schema::create('perguntas', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('descricao_pergunta');
+            $table->string('descricao_resposta');
             $table->integer('materia_id')->unsigned();
             $table->foreign('materia_id')->references('id')->on('materias');
             $table->timestamps();

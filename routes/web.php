@@ -52,6 +52,26 @@ Route::group(['prefix' => 'curso'], function(){
     Route::post('/cadastrarCurso','CursosController@cadastrarCurso')->name('cursos.executarCadastro');
 });
 
+Route::group(['prefix' => 'materia'], function(){
+    Route::get('/cadastrar', 'MateriaController@redirecionarTelaCadastro')->name('materia.cadastrar');
+    Route::get('/listar', 'MateriaController@listarMaterias')->name('materia.listar');
+    Route::get('/editar/{id}', 'MateriaController@editarMateria')->name('materia.editar');
+    Route::post('/alterar/{id}', 'MateriaController@alterarMateria')->name('materia.alterar');
+    Route::get('/vizualizar/{id}', 'MateriaController@visualizarMateria')->name('materia.visualizar');
+    Route::get('/excluir/{id}','MateriaController@excluirMateria')->name('materia.excluir');
+    Route::post('/cadastrarMateria','MateriaController@cadastrarMateria')->name('materia.executarCadastro');
+});
+
+Route::group(['prefix' => 'pergunta'], function(){
+    Route::get('/cadastrar', 'PerguntaController@redirecionarTelaCadastro')->name('pergunta.cadastrar');
+    Route::get('/listar', 'PerguntaController@listarPergunta')->name('pergunta.listar');
+    Route::get('/editar/{id}', 'PerguntaController@editarPergunta')->name('pergunta.editar');
+    Route::post('/alterar/{id}', 'PerguntaController@alterarPergunta')->name('pergunta.alterar');
+    Route::get('/vizualizar/{id}', 'PerguntaController@visualizarPergunta')->name('pergunta.visualizar');
+    Route::get('/excluir/{id}','PerguntaController@excluirPergunta')->name('pergunta.excluir');
+    Route::post('/cadastrarPergunta','PerguntaController@cadastrarPergunta')->name('pergunta.executarCadastro');
+});
+
 Route::post('/dadosAluno','AlunosController@dadosAluno')->name('dadosAluno');
 Route::post('/dados','ProfessoresController@dados')->name('dados');
 Route::post('logon', 'LoginController@logon')->name('logon');

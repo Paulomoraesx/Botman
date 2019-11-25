@@ -4,9 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Perguntas extends Model
+class Pergunta extends Model
 {
-    protected $fillable = ['descricao_pergunta','materia_id'];
+    protected $fillable = ['descricao_pergunta','descricao_resposta','materia_id'];
 
 
     public function materia() {

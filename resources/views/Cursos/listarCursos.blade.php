@@ -3,7 +3,6 @@
     <div id="banner-wrapper">
         <div id="banner" class="box container">
             <div class="row">
-             <div class="col-7 col-12-medium">
               <h1>Cursos</h1>
 			  <table class="table table-hover">
 			    <thead>
@@ -27,7 +26,6 @@
 			    </tbody>
 			    <!-- DADOS [FIM] -->
 			</table>
-    </div>
 </div>
 </div>
 </div>

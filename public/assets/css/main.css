@@ -2115,6 +2115,7 @@ input, select, textarea {
 	#banner {
 		background: white;
 		width: 100%;
+		min-height: 500px;
 	}
 	#banner h3{
 		text-align: center;
@@ -2122,12 +2123,12 @@ input, select, textarea {
 		
 
 		#banner h2 {
-			font-size: 3.5em;
+			font-size: 1.5em;
 			margin: 0.1em 0 0.35em 0;
 		}
 
 		#banner p {
-			font-size: 2.75em;
+			font-size: 1.00em;
 			line-height: 1.35em;
 			margin: 0;
 		}

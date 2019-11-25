@@ -11,8 +11,8 @@
 					</div>
 					<div class="col-5 col-12-medium">
 						<ul>
-							<li><a href="/botman/tinker" class="button large icon fa-arrow-circle-right">Vamos Conversar</a></li>
-							<li><a href="#" class="button alt large icon fa-question-circle">Mais informações</a></li>
+							<li><a href="/botman/tinker" class="button large icon fa-arrow-circle-right" style="background-color:green">Vamos Conversar</a></li>
+							<li><a href="#" class="button alt large icon fa-question-circle" style="background-color:red">Mais informações</a></li>
 						</ul>
 					</div>
 				</div>
