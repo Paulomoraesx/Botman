@@ -1,11 +1,10 @@
 @extends('template')
 @section('conteudo_principal')
-    <div id="banner-wrapper">
-        <div id="banner" class="box container">
-            <div class="row">
-             <div class="col-7 col-12-medium">
-              <h1>Aluno</h1>
-			  <table class="table table-hover">
+<div id="page" class="container">
+		<div class="title">
+			<h2>Cadastro do professor</h2>
+		</div>
+		<table class="table table-hover">
 			    <thead>
 			      <tr>
                     <th>Nome</th>
@@ -22,12 +21,10 @@
 						<td><a href="{{route('alunos.editar', ['id' => $aluno['id']])}}">Alterar</a></td>
 						
 					</tr>
+				</tbody>
 			    <!-- DADOS [FIM] -->
-			</table>
-    </div>
+		</table>
 </div>
-</div>
-</div>
-</body>
+ 
 
 @endsection

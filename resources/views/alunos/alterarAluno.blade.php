@@ -1,51 +1,44 @@
 @extends('template');
 @section('conteudo_principal')
-<div id="banner-wrapper">
-    <div id="banner" class="box container">
-        <div class="row">
-            <div class="col-7 col-12-medium">
-                <div id="Alterar">
-                    <h3>Alteração de dados do Aluno</h3>
-                    <!--ERRO NO ALTERAR INCOMPLETO  -->
-                    @if ($errors->any())
-                    <div class="alert alert-danger">
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                    @endif
-                    <!--[FIM ]ALTERAR  INCOMPLETO    -->
-                    <form action="{{route('alunos.alterar', ['id' => $alunos['id']])}}" method="post">
-                        @csrf
 
-                        <label for="nome">*Nome:</label>
-                        <input type="text" id="nome" value="{{old('nome',$alunos->nome)}}"name="nome" placeholder=""/>
-                        <br/>
+<div id="page" class="container">
+		<div class="title">
+			<h2>Alteração de dados do aluno</h2>
+		</div>
+		<!--ERRO NO CADASTRO INCOMPLETO  -->
+		@if ($errors->any())
+					<div class="alert alert-danger">
+						<ul>
+							@foreach ($errors->all() as $error)
+							<li>{{ $error }}</li>
+							@endforeach
+						</ul>
+					</div>
+					@endif
+					<!--[FIM ]CADASTRO  INCOMPLETO    -->
+            <form action="{{route('alunos.alterar', ['id' => $alunos['id']])}}" method="post">
+			@csrf
+			<div class="gallery">
+				<div class="boxA">
+					<label for="matricula">Matricula*:</label>
+					<input type="text" id="matricula" name="matricula" placeholder="Matricula.."/>
+				</div>
 
-                        <label for="matricula">*Matricula:</label>
-                        <input type="text" id="matricula" value="{{old('matricula',$alunos->matricula)}}"name="matricula" placeholder=""/>
-                        <br/>
+				<div class="boxB">
+					<label for="nome">Nome*:</label>
+					<input type="text" id="nome" name="nome" placeholder="Nome.."/>
+				</div>
 
-
-
-						<label for="curso">*Curso:</label>
+				<div class="boxC">
+					<label for="curso">Curso*:</label>
 						<select name="curso_id" id="curso">
-						@foreach($cursos as $curso)
-    					<option value="{{$curso->id}}">{{$curso->descricao_curso}}</option>
-						@endforeach
+							@foreach($cursos as $curso)
+							<option value="{{$curso->id}}">{{$curso->descricao_curso}}</option>
+							@endforeach
 						</select>
-                        <br/>
-                        
-                        
-                        <br/>
-                        <div><input type="submit" class="btn-submit" value="Confirmar!"/></div>
-                        
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
+				</div>
+			</div>	
+			<div><input type="submit" class="button" value="Cadastrar"/></div>
+		</form>
 </div>
 @endsection

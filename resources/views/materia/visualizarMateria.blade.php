@@ -1,10 +1,10 @@
 @extends('template')
 @section('conteudo_principal')
-    <div id="banner-wrapper">
-        <div id="banner" class="box container">
-            <div class="row">
 
-              <h1>Matérias</h1>
+<div id="page" class="container">
+		<div class="title">
+			<h1>Matérias</h1>
+		</div>
 			  <table class="table table-hover">
 			    <thead>
 			      <tr>
@@ -22,10 +22,6 @@
 					</tr>
 			    <!-- DADOS [FIM] -->
 			</table>
-
 </div>
-</div>
-</div>
-</body>
 
 @endsection

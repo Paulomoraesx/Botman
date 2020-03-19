@@ -2000,7 +2000,6 @@ input, select, textarea {
 /* Nav */
 
 	#nav {
-		position: absolute;
 		right: 0;
 		top: 0;
 		font-size: 0.9em;

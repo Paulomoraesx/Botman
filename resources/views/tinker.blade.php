@@ -1,17 +1,23 @@
 @extends('template')
 
 @section('conteudo_principal')
-			<div id="banner" class="box container">
-            
-				<div class="row">
-					<div class="col-7 col-12-medium">
-<div class="container">
-    <div class="content" id="app">
-        <botman-tinker api-endpoint="/botman" style="background-color:red"></botman-tinker>
-    </div>
-</div>
-</div>
-		</div>
+<div id="page" class="container">
+		<div class="title">
+			<h1>ChatBot</h1>
         </div>
+
+        <div class="gallery">
+
+				<div class="boxA">
+				</div>
+
+				<div class="boxB" style="background-color:#79C255">
+                    <div class="content" id="app">
+                        <botman-tinker api-endpoint="/botman" style="background-color:#79C255"></botman-tinker>
+                    </div>
+				</div>
+		</div>
+</div>
+
 
 @endsection

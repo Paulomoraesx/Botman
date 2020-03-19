@@ -39,7 +39,6 @@
 					'<a href="#navPanel" class="toggle"></a>' +
 				'</div>'
 			)
-				.appendTo($body);
 
 		// Panel.
 			$(
@@ -49,7 +48,6 @@
 					'</nav>' +
 				'</div>'
 			)
-				.appendTo($body)
 				.panel({
 					delay: 500,
 					hideOnClick: true,
