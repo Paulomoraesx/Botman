@@ -46,9 +46,8 @@
 					<label for="telefone">Telefone*:</label>
 					<input type="text" id="telefone" name="telefone" placeholder="11-11111.1111"/>
 				</div>
-
-				<div><input type="submit" class="button" value="Cadastrar"/></div>
 			</div>	
+			<div><input type="submit" class="button" value="Cadastrar"/></div>
 		</form>
 </div>
 
