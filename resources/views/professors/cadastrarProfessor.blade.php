@@ -19,20 +19,20 @@
 					<!--[FIM ]CADASTRO  INCOMPLETO    -->
 		<form action="{{route('dados')}}" method="post" enctype="multipart/form-data" >
 			@csrf
-			<div class="gallery">
+			<div class="boxCadastro">
 				<div class="boxA">
 					<label for="matricula">Matricula*:</label>
-					<input type="text" id="matricula" name="matricula" placeholder="Matricula.."/>
+					<input class="componenteInputCadastro" type="text" id="matricula" name="matricula" placeholder="Matricula.."/>
 				</div>
 
 				<div class="boxB">
 					<label for="nome">Nome*:</label>
-					<input type="text" id="nome" name="nome" placeholder="Nome.."/>
+					<input class="componenteInputCadastro" type="text" id="nome" name="nome" placeholder="Nome.."/>
 				</div>
 				
 				<div class="boxA">
 					<label for="cpf">CPF*:</label>
-					<input type="text" id="cpf" name="cpf" placeholder="11111111111"/>
+					<input  class="componenteInputCadastro"type="text" id="cpf" name="cpf" placeholder="11111111111"/>
 				</div>
 
 				<div class="boxB">
@@ -46,7 +46,7 @@
 
 				<div class="boxC">
 					<label for="telefone">Telefone*:</label>
-					<input type="text" id="telefone" name="telefone" placeholder="11-11111.1111"/>
+					<input class="componenteInputCadastro" type="text" id="telefone" name="telefone" placeholder="11-11111.1111"/>
 				</div>
 			</div>	
 			<div><input type="submit" class="button" value="Cadastrar"/></div>

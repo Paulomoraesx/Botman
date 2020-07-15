@@ -112,28 +112,9 @@ input, select, textarea {
 		width: 50%;
 		margin-left: 10%;
 	}
-
-	#btns-login{
-		align-items: center;
-		display: flex;
-		flex-direction: row;
-		flex-wrap: wrap;
-		justify-content: center;
-	}
 	#login-body {
 		background-color: rgba(37, 130, 250, 0.911);
 	} 
-
-	.btn-login{
-		background: rgba(37, 130, 250, 0.911) !important;
-	}
-
-	.btn-cadastrar{
-		background: rgb(230, 75, 75) !important;
-		text-decoration: none;
-		padding: 29px;
-		border-radius: 5px;
-	}
 
 	.btn-submit{
 		background: rgb(137, 189, 85) !important;
@@ -2003,7 +1984,7 @@ input, select, textarea {
 		right: 0;
 		top: 0;
 		font-size: 0.9em;
-		background-color: #fff;;
+		background-color: #79C255 !important;
 		border-radius: 10px;
 	}
 

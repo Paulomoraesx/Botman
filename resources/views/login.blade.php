@@ -2,7 +2,7 @@
 
 @section('conteudo_principal')
 
-<div id="page" class="container">
+<div id="pagina" class="container">
 		<div class="title">
 			<h1>Login</h1>
 		</div>
@@ -18,24 +18,22 @@
 		@csrf
 		<div class="gallery">
 
-				<div class="boxA">
+			<div class="boxLogin">
+				<div style="flex: 1; margin-bottom: 15px;">
 					<label for="login">Login:</label>
-					<input type="text" id="login" name="login" placeholder="Login.."/>
+					<input class="componenteInputLogin1" type="text" id="login" name="login" placeholder="Login.."/>
+				</div>
+				<div style="flex: 1; margin-bottom: 5%">
+					<label for="senha">Senha:</label>
+					<input class="componenteInputLogin2" type="password" id="senha" name="senha" placeholder="********"/>
 				</div>
 
-				<div class="boxB">
-					<label for="senha">Senha:</label>
-					<input type="password" id="senha" name="senha" placeholder="********"/>
-				</div>
-				<div class="boxC">
-					<div id="btns-login" class="box-footer">
-						<div class="pull-center">
-							<input type="submit" class="btn-login" value="Login"/>
+			</div>
+					<div class="btns-login">
+							<input  type="submit" class="btn-login" value="Login"/>
 							<a href="{{route('professors.cadastrar')}}" style="text-decoration:none">
 								<input type="button" class="btn-cadastrar" value="Cadastrar">
 							</a>													
-						</div>
-					</div>
 				</div>
 		</div>
 		
