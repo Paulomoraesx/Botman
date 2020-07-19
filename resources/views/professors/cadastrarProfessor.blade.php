@@ -20,22 +20,22 @@
 		<form action="{{route('dados')}}" method="post" enctype="multipart/form-data" >
 			@csrf
 			<div class="boxCadastro">
-				<div class="boxA">
+				<div class="itemBoxCadastro">
 					<label for="matricula">Matricula*:</label>
 					<input class="componenteInputCadastro" type="text" id="matricula" name="matricula" placeholder="Matricula.."/>
 				</div>
 
-				<div class="boxB">
+				<div class="itemBoxCadastro">
 					<label for="nome">Nome*:</label>
 					<input class="componenteInputCadastro" type="text" id="nome" name="nome" placeholder="Nome.."/>
 				</div>
 				
-				<div class="boxA">
+				<div class="itemBoxCadastro">
 					<label for="cpf">CPF*:</label>
 					<input  class="componenteInputCadastro"type="text" id="cpf" name="cpf" placeholder="11111111111"/>
 				</div>
 
-				<div class="boxB">
+				<div class="itemBoxCadastro">
 					<label for="curso">Curso*:</label>
 						<select name="curso_id" id="curso">
 							@foreach($cursos as $curso)
@@ -44,7 +44,7 @@
 						</select>
 				</div>
 
-				<div class="boxC">
+				<div class="itemBoxCadastro">
 					<label for="telefone">Telefone*:</label>
 					<input class="componenteInputCadastro" type="text" id="telefone" name="telefone" placeholder="11-11111.1111"/>
 				</div>

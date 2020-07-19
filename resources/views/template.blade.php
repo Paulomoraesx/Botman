@@ -27,7 +27,7 @@
 
 <div id="wrapper">
 	<div id="header" class="container">
-		<div id="logo">
+		<div id="logo" class="cssLogo">
 			<h1>Robo Monitor</h1>
 		</div>
 		<div id="menu">
@@ -59,7 +59,7 @@
 							</ul>
 						</li>
 						<li>
-						<a class="btns-nav" href="{{route('professors.listar')}}">BOTMAN</a>
+						<a class="btns-nav" href="/botman/tinker">BOTMAN</a>
 							<ul>
 								<div class="fundoEscolhasNav">
 								<li><a href="/botman/tinker">Iniciar</a></li>

@@ -17,8 +17,8 @@
 					<tr>
                         <td>{{$aluno['nome']}}</td>
 						<td>{{$aluno['matricula']}}</td>
-						<td>{{$aluno['curso']}}</td>
-						<td><a href="{{route('alunos.editar', ['id' => $aluno['id']])}}">Alterar</a></td>
+						<td>{{$aluno->curso->descricao_curso}}</td>
+						<td><a href="{{route('alunos.editar', ['id' => $aluno['id']])}}" class="fa fa-pencil"></a></td>
 						
 					</tr>
 				</tbody>

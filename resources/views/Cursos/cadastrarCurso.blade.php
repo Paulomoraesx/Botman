@@ -19,13 +19,11 @@
 			<!--[FIM ]CADASTRO  INCOMPLETO    -->
 			<form action="{{route('cursos.executarCadastro')}}" method="post" enctype="multipart/form-data" >
 			@csrf
-			<div class="gallery">
+			<div class="boxCadastro">
 
-				<div class="boxA"></div>
-
-				<div class="boxB">
+				<div class="itemBoxCadastro">
 					<label for="descricao_curso">Descrição*:</label>
-					<input type="text" id="matricula" name="descricao_curso" placeholder="Descrição do curso.."/>
+					<input class="componenteInputCadastro" type="text" id="matricula" name="descricao_curso" placeholder="Descrição do curso.."/>
 				</div>
 				
 			</div>	

@@ -11,7 +11,7 @@
 			        <th>Nome</th>
 					<th>CPF</th>
 					<th>Curso</th>
-                   	th>Telefone</th>
+                   	<th>Telefone</th>
 					<th>Ações</th>
 			    </tr>
 			</thead>

@@ -21,12 +21,12 @@
 		@csrf
 		<div class="gallery">
 
-				<div class="boxA">
+				<div class="itemBoxCadastro">
 					<label for="descricao-materia">Descrição*:</label>
-					<input type="text" id="descricao-materia" name="descricao_materia" placeholder="Descrição da Matéria.."/>
+					<input class="componenteInputCadastro" type="text" id="descricao-materia" name="descricao_materia" placeholder="Descrição da Matéria.."/>
 				</div>
 
-				<div class="boxB">
+				<div class="itemBoxCadastro">
 					<label for="curso">Curso*:</label>
 						<select name="curso_id" id="curso">
 							@foreach($cursos as $curso)

@@ -20,17 +20,17 @@
 		@csrf
 		<div class="gallery">
 
-				<div class="boxA">
+				<div class="itemBoxCadastro">
 					<label for="descricao-pergunta">Descrição*:</label>
-					<input type="text" id="descricao-pergunta" name="descricao_pergunta" placeholder="Descrição da Pergunta.."/>
+					<input class="componenteInputCadastro" type="text" id="descricao-pergunta" name="descricao_pergunta" placeholder="Descrição da Pergunta.."/>
 				</div>
 
-				<div class="boxB">
+				<div class="itemBoxCadastro">
 					<label for="descricao-resposta">Resposta*:</label>
-					<input type="text" id="descricao-resposta" name="descricao_resposta" placeholder="Descrição da resposta.."/>
+					<input class="componenteInputCadastro" type="text" id="descricao-resposta" name="descricao_resposta" placeholder="Descrição da resposta.."/>
 				</div>
 
-				<div class="boxC">
+				<div class="itemBoxCadastro">
 					<label for="materia">Matéria*:</label>
 						<select name="materia_id" id="materia">
 							@foreach($materias as $materia)

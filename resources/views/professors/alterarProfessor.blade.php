@@ -17,23 +17,23 @@
 					<!--[FIM ]CADASTRO  INCOMPLETO    -->
             <form action="{{route('professors.alterar', ['id' => $professors['id']])}}" method="post">
 			@csrf
-			<div class="gallery">
-				<div class="boxA">
+			<div class="boxCadastro">
+				<div class="itemBoxCadastro">
 					<label for="matricula">Matricula*:</label>
-					<input type="text" id="matricula" name="matricula" placeholder="Matricula.."/>
+					<input class="componenteInputCadastro" type="text" id="matricula" name="matricula" placeholder="Matricula.."/>
 				</div>
 
-				<div class="boxB">
+				<div class="itemBoxCadastro">
 					<label for="nome">Nome*:</label>
-					<input type="text" id="nome" name="nome" placeholder="Nome.."/>
+					<input class="componenteInputCadastro" type="text" id="nome" name="nome" placeholder="Nome.."/>
 				</div>
 				
-				<div class="boxA">
+				<div class="itemBoxCadastro">
 					<label for="cpf">CPF*:</label>
-					<input type="text" id="cpf" name="cpf" placeholder="11111111111"/>
+					<input class="componenteInputCadastro" type="text" id="cpf" name="cpf" placeholder="11111111111"/>
 				</div>
 
-				<div class="boxB">
+				<div class="itemBoxCadastro">
 					<label for="curso">Curso*:</label>
 						<select name="curso_id" id="curso">
 							@foreach($cursos as $curso)
@@ -42,12 +42,12 @@
 						</select>
 				</div>
 
-				<div class="boxC">
+				<div class="itemBoxCadastro">
 					<label for="telefone">Telefone*:</label>
-					<input type="text" id="telefone" name="telefone" placeholder="11-11111.1111"/>
+					<input class="componenteInputCadastro" type="text" id="telefone" name="telefone" placeholder="11-11111.1111"/>
 				</div>
 			</div>	
-			<div><input type="submit" class="button" value="Cadastrar"/></div>
+			<div><input type="submit" class="button" value="Alterar"/></div>
 		</form>
 </div>
 

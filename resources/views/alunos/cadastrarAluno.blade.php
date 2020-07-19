@@ -18,18 +18,18 @@
 					<!--[FIM ]CADASTRO  INCOMPLETO    -->
 		<form action="{{route('dadosAluno')}}" method="post" enctype="multipart/form-data" >
 			@csrf
-			<div class="gallery">
-				<div class="boxA">
+			<div class="boxCadastro">
+				<div class="itemBoxCadastro">
 					<label for="matricula">Matricula*:</label>
-					<input type="text" id="matricula" name="matricula" placeholder="Matricula.."/>
+					<input class="componenteInputCadastro" type="text" id="matricula" name="matricula" placeholder="Matricula.."/>
 				</div>
 
-				<div class="boxB">
+				<div class="itemBoxCadastro">
 					<label for="nome">Nome*:</label>
-					<input type="text" id="nome" name="nome" placeholder="Nome.."/>
+					<input class="componenteInputCadastro" type="text" id="nome" name="nome" placeholder="Nome.."/>
 				</div>
 
-				<div class="boxC">
+				<div class="itemBoxCadastro">
 					<label for="curso">Curso*:</label>
 						<select name="curso_id" id="curso">
 							@foreach($cursos as $curso)
