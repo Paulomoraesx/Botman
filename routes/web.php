@@ -23,6 +23,8 @@ Route::get('/inicio', 'LoginController@inicio')->name('inicio');
 
 Route::get('/', 'LoginController@login')->name('login');
 
+Route::get('/criandochatbot', 'LoginController@criandochatbot')->name('criandoChatBot');
+
     
 Route::group(['prefix' => 'professors'], function () {
     Route::get('/cadastrar','ProfessoresController@cadastrar')->name('professors.cadastrar');

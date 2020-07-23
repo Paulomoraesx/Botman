@@ -2,7 +2,7 @@
 @section('conteudo_principal')
 <div id="page" class="container">
 		<div class="title">
-			<h2>Cursos</h2>
+			<h2 style="margin-right: 10%">Cursos</h2>
 		</div>
 		<table class="table table-hover">
 			    <thead>
@@ -26,6 +26,7 @@
 			    </tbody>
 			    <!-- DADOS [FIM] -->
 			</table>
+			<div><a style="margin-right: 10%" href="{{route('materia.cadastrar')}}" class="button">Cadastre a matéria</a></div>
 
 </div>
 

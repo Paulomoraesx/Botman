@@ -33,4 +33,7 @@ class LoginController extends Controller
     public function inicio1(){
         return view('welcome');
     }
+    public function criandoChatBot(){
+        return view('criandoChatBot');
+    }
 }

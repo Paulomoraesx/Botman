@@ -16,7 +16,7 @@ class teste extends Conversation
 
     public function askForDatabase()
     {
-        $question = Question::create('Você precisa de ajuda com banco de dados?')
+        $question = Question::create('Você precisa de ajuda ?')
             ->fallback('Unable to create a new database')
             ->callbackId('create_database')
             ->addButtons([
@@ -37,10 +37,13 @@ class teste extends Conversation
     }
 
     public function askAssunto(){
-        $this->ask('Qual sua duvida a respeito de banco?', function(Answer $answer){
+        $this->ask('Qual a sua duvida?', function(Answer $answer){
             $this->assunto = $answer->getText();
             
             if($answer->getText() == 'insert'){
+                $this->answerInsert($this->assunto);
+            }
+            if($answer->getText() == 'o que compoe a mente'){
                 $this->answerInsert($this->assunto);
             }
         });

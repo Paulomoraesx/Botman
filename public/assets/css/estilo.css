@@ -86,3 +86,11 @@
 .selectBoxCurso{
 	border-radius: 10px;
 }
+.gridCriandoChatbot{
+	display: grid;
+	grid-template-columns: auto;
+	padding: 20px;
+	border-bottom: 2px solid #79C255;
+	border-radius: 15px;
+
+}

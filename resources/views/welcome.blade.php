@@ -32,7 +32,7 @@
 			</div>
 		</div>
 		<ul class="actions">
-			<li><a href="#" class="button">Crie seu chatbot</a></li>
+			<li><a href="{{route('criandoChatBot')}}" class="button">Crie seu chatbot</a></li>
 		</ul>
 	</div>
 	<div id="page" class="container">

@@ -3,7 +3,7 @@
 
 <div id="page" class="container">
 		<div class="title">
-			<h1>Matérias</h1>
+			<h1 style="margin-right: 10%">Matérias</h1>
 		</div>
 		<table class="table table-hover">
 			    <thead>
@@ -29,6 +29,7 @@
 			    </tbody>
 			    <!-- DADOS [FIM] -->
 			</table>
+			<div><a style="margin-right: 10%; margin-top:5%" href="{{route('pergunta.cadastrar')}}" class="button">Cadastre uma pergunta</a></div>
 </div>
 
 @endsection
