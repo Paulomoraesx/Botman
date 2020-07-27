@@ -23,9 +23,9 @@ class ProfessoresController extends Controller
         $request->validate([
             'matricula' => 'required',
             'nome' => 'required',
-            'cpf' => 'required',
+            'email' => 'required',
+            'tipo_cadastro' => 'required',
             'curso_id' => 'required',
-            'telefone' => 'required',
             ]);
             Professor::where('id',$id)->update($request->except('_token'));
             return redirect()->route('professors.listar')->with('acao', 'Atualizado com sucesso');
@@ -40,9 +40,9 @@ class ProfessoresController extends Controller
         $request->validate([
                 'matricula' => 'required',
                 'nome' => 'required',
-                'cpf' => 'required',
+                'email' => 'required',
+                'tipo_cadastro' => 'required',
                 'curso_id' => 'required',
-                'telefone' => 'required',
                 ]);
                 Professor::create($request->all());
                 

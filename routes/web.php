@@ -25,7 +25,15 @@ Route::get('/', 'LoginController@login')->name('login');
 
 Route::get('/criandochatbot', 'LoginController@criandochatbot')->name('criandoChatBot');
 
-    
+Route::group(['prefix' => 'usuarios'], function () {
+    Route::get('/cadastrar','UsuariosController@cadastrar')->name('usuarios.cadastrar');
+    Route::get('/listar','UsuariosController@listar')->name('usuarios.listar');
+    Route::get('/editar/{id}','UsuariosController@editar')->name('usuarios.editar');
+    Route::post('/alterar/{id}', 'UsuariosController@alterar')->name('usuarios.alterar');
+    Route::get('/visualizar/{id}', 'UsuariosController@visualizar')->name('usuarios.visualizar');
+    Route::get('/excluir/{id}','UsuariosController@excluir')->name('usuarios.excluir');
+});
+
 Route::group(['prefix' => 'professors'], function () {
     Route::get('/cadastrar','ProfessoresController@cadastrar')->name('professors.cadastrar');
     Route::get('/listar','ProfessoresController@listar')->name('professors.listar');
@@ -75,6 +83,7 @@ Route::group(['prefix' => 'pergunta'], function(){
 });
 
 Route::post('/dadosAluno','AlunosController@dadosAluno')->name('dadosAluno');
+Route::post('/dadosUsuario','UsuariosController@dadosUsuario')->name('dadosUsuario');
 Route::post('/dados','ProfessoresController@dados')->name('dados');
 Route::post('logon', 'LoginController@logon')->name('logon');
 
