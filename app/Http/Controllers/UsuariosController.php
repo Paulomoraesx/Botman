@@ -34,7 +34,6 @@ class UsuariosController extends Controller
     public function visualizar($id){
         $dados['usuario'] = Usuario::find($id);
         return view('usuarios/visualizarUsuario', $dados);
-
     }
     public function dadosUsuario(Request $request ){
         $request->validate([

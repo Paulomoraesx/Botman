@@ -14,7 +14,7 @@
 			</div>
 		@endif
 
-		<form action="{{route('logon')}}" method="post" enctype="multipart/form-data" >
+		<form action="{{route('autenticar')}}" method="post" enctype="multipart/form-data">
 		@csrf
 		<div class="gallery">
 
@@ -33,7 +33,7 @@
 							<input  type="submit" class="btn-login" value="Login"/>
 							<a href="{{route('professors.cadastrar')}}" style="text-decoration:none">
 								<input type="button" class="btn-cadastrar" value="Cadastrar">
-							</a>													
+							</a>				
 				</div>
 		</div>
 		
