@@ -12,7 +12,6 @@ class LoginController extends Controller
     public function autenticar(Request $request){
         $user = Usuario::where('matricula', $request->matricula)
                         ->where('senha', $request->senha)->firstOrFail();
-
         if($user->id == null){
             return redirect()->route('login')->with('Erro!','Senha ou Login invalido');
         }else{

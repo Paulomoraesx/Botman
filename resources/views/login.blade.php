@@ -31,7 +31,7 @@
 			</div>
 					<div class="btns-login">
 							<input type="submit" class="btn-login" value="Login"/>
-							<a href="{{route('professors.cadastrar')}}" style="text-decoration:none">
+							<a href="{{route('usuarios.cadastrar')}}" style="text-decoration:none">
 								<input type="button" class="btn-cadastrar" value="Cadastrar">
 							</a>				
 				</div>
