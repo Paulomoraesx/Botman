@@ -85,11 +85,11 @@ Route::group(['prefix' => 'pergunta'], function(){
 Route::post('/dadosAluno','AlunosController@dadosAluno')->name('dadosAluno');
 Route::post('/dadosUsuario','UsuariosController@dadosUsuario')->name('dadosUsuario');
 Route::post('/dados','ProfessoresController@dados')->name('dados');
-Route::post('logon', 'LoginController@logon')->name('logon');
+
 
 Route::get('cadastros','LoginController@cadastros')->name('cadastros');
 Route::get('listagem','LoginController@listagem')->name('listagem');
 Route::get('venda','LoginController@venda')->name('venda');
 Route::post('/inicio1', 'LoginController@inicio')->name('inicio1');
 
-Route::post('/welcome','LoginController@autenticar')->name('autenticar');
+Route::post('login', 'LoginController@autenticar')->name('autenticar');

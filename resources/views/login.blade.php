@@ -20,8 +20,8 @@
 
 			<div class="boxLogin">
 				<div style="flex: 1; margin-bottom: 15px;">
-					<label for="login">Login:</label>
-					<input class="componenteInputLogin1" type="text" id="login" name="login" placeholder="Login.."/>
+					<label for="login">Matricula:</label>
+					<input class="componenteInputLogin1" type="text" id="login" name="matricula" placeholder="Matricula.."/>
 				</div>
 				<div style="flex: 1; margin-bottom: 5%">
 					<label for="senha">Senha:</label>
@@ -30,7 +30,7 @@
 
 			</div>
 					<div class="btns-login">
-							<input  type="submit" class="btn-login" value="Login"/>
+							<input type="submit" class="btn-login" value="Login"/>
 							<a href="{{route('professors.cadastrar')}}" style="text-decoration:none">
 								<input type="button" class="btn-cadastrar" value="Cadastrar">
 							</a>				

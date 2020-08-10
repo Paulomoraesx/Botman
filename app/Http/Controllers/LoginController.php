@@ -4,20 +4,19 @@ namespace App\Http\Controllers;
 
 use App\Models\Usuario;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class LoginController extends Controller
 {
 
     public function autenticar(Request $request){
-        $request->validate([
-            'login' => 'required',
-            'senha' => 'required',
-            ]);
-        $user = Usuario::where('login, senha', $request->login, $request->senha);
-        
-        if($user->is_null){
+        $user = Usuario::where('matricula', $request->matricula)
+                        ->where('senha', $request->senha)->firstOrFail();
+
+        if($user->id == null){
             return redirect()->route('login')->with('Erro!','Senha ou Login invalido');
         }else{
+            Session::put('USUARIO_LOGADO', $user);
             return redirect()->route('inicio');
         }
     }
