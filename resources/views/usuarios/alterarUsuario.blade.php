@@ -17,11 +17,6 @@
 					<!--[FIM ]CADASTRO  INCOMPLETO    -->
             <form action="{{route('usuarios.alterar', ['id' => $usuarios['id']])}}" method="post">
 			@csrf
-                <div class="itemBoxCadastro">
-                    <label for="matricula">Matricula*:</label>
-                    <input class="componenteInputCadastro" type="text" id="matricula" name="matricula"
-                           placeholder="Matricula.."/>
-                </div>
 
                 <div class="itemBoxCadastro">
                     <label for="nome">Nome*:</label>
@@ -37,19 +32,19 @@
                     <input class="componenteInputCadastro" type="text" id="email" name="email" placeholder="teste@teste.com"/>
                 </div>
 
-<!--                <div class="itemBoxCadastro">
+                <div class="itemBoxCadastro">
                     <label for="usuario">Usuario*:</label>
                     <select name="tipo_cadastro" id="usuario">
-                        <option label="Aluno" value="aluno"></option>
-                        <option label="Professor" value="professor"></option>
+                        <option label="Aluno" value="A"></option>
+                        <option label="Professor" value="P"></option>
                     </select>
-                </div>-->
+                </div>
 
                 <div class="itemBoxCadastro">
                     <label for="curso">Curso*:</label>
                     <select name="curso_id" id="curso">
-                        @foreach($cursos as $curso)
-                        <option value="{{$curso->id}}">{{$curso->descricao_curso}}</option>
+                        @foreach($materias as $materia)
+                        <option value="{{$materia->id}}">{{$materia->descricao_curso}}</option>
                         @endforeach
                     </select>
                 </div>

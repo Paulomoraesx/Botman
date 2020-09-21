@@ -26,10 +26,11 @@ Route::get('/', 'LoginController@login')->name('login');
 Route::get('/criandochatbot', 'LoginController@criandochatbot')->name('criandoChatBot');
 
 Route::group(['prefix' => 'usuarios'], function () {
-    Route::get('/cadastrar', 'UsuariosController@cadastrar')->name('usuarios.cadastrar');
-    Route::get('/listar', 'UsuariosController@listar')->name('usuarios.listar');
-    Route::get('/editar/{id}', 'UsuariosController@editar')->name('usuarios.editar');
-    Route::post('/alterar/{id}', 'UsuariosController@alterar')->name('usuarios.alterar');
+    Route::get('/cadastrar', 'UsuariosController@redirecionarParaTelaDeCadastroUsuario')->name('usuarios.cadastrar');
+    Route::get('/listar', 'UsuariosController@listarUsuarios')->name('usuarios.listar');
+    Route::get('/editar/{id}', 'UsuariosController@redirecionarParaTelaDeEditar')->name('usuarios.editar');
+    Route::post('/alterar/{id}', 'UsuariosController@salvarAlteracao')->name('usuarios.alterar');
+    Route::post('/cadastrar', 'UsuariosController@salvarNovoUsuario')->name('usuarios.salvar');
     Route::get('/visualizar/{id}', 'UsuariosController@visualizar')->name('usuarios.visualizar');
     Route::get('/excluir/{id}', 'UsuariosController@excluir')->name('usuarios.excluir');
 });
@@ -82,6 +83,28 @@ Route::group(['prefix' => 'pergunta'], function () {
     Route::post('/cadastrarPergunta', 'PerguntaController@cadastrarPergunta')->name('pergunta.executarCadastro');
 });
 
+Route::group(['prefix' => 'mensagem'], function () {
+    Route::get('/gerenciarFluxo/{id}', 'MensagemController@redirecionarParaTelaDeCadastro')->name('mensagem.cadastrar');
+    Route::get('/listar', 'MensagemController@listarPergunta')->name('mensagem.listar');
+    Route::get('/editar/{id}', 'MensagemController@editarPergunta')->name('mensagem.editar');
+    Route::post('/alterar/{id}', 'MensagemController@alterarPergunta')->name('mensagem.alterar');
+    Route::get('/vizualizar/{id}', 'MensagemController@visualizarPergunta')->name('mensagem.visualizar');
+    Route::get('/excluir/{id}', 'MensagemController@excluirPergunta')->name('mensagem.excluir');
+    Route::post('/cadastrarPergunta', 'MensagemController@cadastrarPergunta')->name('mensagem.executarCadastro');
+    Route::post('/', 'MensagemController@teste')->name('mensagem.teste');
+    Route::post('/gerenciarFluxo', 'MensagemController@listarOpcoesParaNovaPergunta')->name('mensagem.listarOpcoes');
+});
+
+
+Route::group(['prefix' => 'chatbot'], function () {
+    Route::get('/cadastrar', 'ChatbotController@redirecionarParaTelaDeCadastro')->name('chatbot.cadastrar');
+    Route::get('/listar', 'ChatbotController@listar')->name('chatbot.listar');
+    Route::get('/editar/{id}', 'ChatbotController@redirecionarParaTelaDeEdicao')->name('chatbot.editar');
+    Route::post('/alterar/{id}', 'ChatbotController@salvarAlteracao')->name('chatbot.alterar');
+    Route::get('/excluir/{id}', 'ChatbotController@excluir')->name('chatbot.excluir');
+    Route::post('/cadastrarChatbot', 'ChatbotController@salvarNovoChatBot')->name('chatbot.salvar');
+});
+
 Route::post('/dadosAluno', 'AlunosController@dadosAluno')->name('dadosAluno');
 Route::post('/dadosUsuario', 'UsuariosController@dadosUsuario')->name('dadosUsuario');
 Route::post('/dados', 'ProfessoresController@dados')->name('dados');
@@ -90,6 +113,6 @@ Route::post('/dados', 'ProfessoresController@dados')->name('dados');
 Route::get('cadastros', 'LoginController@cadastros')->name('cadastros');
 Route::get('listagem', 'LoginController@listagem')->name('listagem');
 Route::get('venda', 'LoginController@venda')->name('venda');
-Route::post('/inicio1', 'LoginController@inicio')->name('inicio1');
+Route::get('/login', 'LoginController@login')->name('login');
 
 Route::post('login', 'LoginController@autenticar')->name('autenticar');

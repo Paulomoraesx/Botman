@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CriandoTabelaMensagens extends Migration
+class CriandoTabelaAssunto extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,12 @@ class CriandoTabelaMensagens extends Migration
      */
     public function up()
     {
-        Schema::create('mensagems', function (Blueprint $table) {
+        Schema::create('assuntos', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('mensagem');
-            $table->boolean('inicial');
-            $table->integer('chatbot_id')->unsigned();
-            $table->foreign('chatbot_id')->references('id')->on('chatbots');
+            $table->string('descricao_assunto');
+            $table->integer('materia_id')->unsigned();
+            $table->foreign('materia_id')->references('id')->on('materias');
             $table->timestamps();
-
         });
     }
 
@@ -31,6 +29,6 @@ class CriandoTabelaMensagens extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('mensagens');
+        //
     }
 }

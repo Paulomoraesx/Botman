@@ -10,7 +10,7 @@ class LoginController extends Controller
 {
 
     public function autenticar(Request $request){
-        $user = Usuario::where('matricula', $request->matricula)
+        $user = Usuario::where('email', $request->email)
                         ->where('senha', $request->senha)->firstOrFail();
         if($user->id == null){
             return redirect()->route('login')->with('Erro!','Senha ou Login invalido');
@@ -18,6 +18,7 @@ class LoginController extends Controller
             Session::put('USUARIO_LOGADO', $user);
             return redirect()->route('inicio');
         }
+
     }
 
 
@@ -31,7 +32,7 @@ class LoginController extends Controller
     }
     
     public function logon(Request $request){
-        if($request->login== 'admin' && $request->senha== '12345')
+        if($request->email== 'admin' && $request->senha== '12345')
             return redirect()->route('inicio');
         else
          return redirect()->route('login')->with('Erro!','Senha ou Login invalido');

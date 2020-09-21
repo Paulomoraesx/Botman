@@ -5,7 +5,7 @@
     <meta charset="utf-8"/>
     <!-- JQUERY -->
     <script src="{{asset('assets/js/jquery-2.2.4.min.js')}}" type="text/javascript"></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.3.0/jquery.form.min.js"></script>
     <!-- BOOTSTRAP -->
     <link rel="stylesheet" href="{{asset('assets/css/bootstrap.min.css')}}">
     <link rel="stylesheet" href="{{asset('assets/css/font-awesome.min.css')}}">
@@ -16,6 +16,7 @@
     <link href="{{asset('assets/css/estilo.css')}}" rel="stylesheet" type="text/css" media="all"/>
 
     <script src="{{asset('assets/js/bootstrap.min.js')}}"></script>
+
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -31,8 +32,10 @@
             <h1>Robo Monitor</h1>
         </div>
         <div id="menu">
+            <div id="app"></div>
             <nav id="nav">
                 <ul>
+                    <li class="current"><a href="{{route('login')}}">Login</a></li>
                     <li class="current"><a href="{{route('inicio')}}">Inicio</a></li>
                     <li>
                         <a class="btns-nav">Cadastros</a>
@@ -44,6 +47,7 @@
                                 <li><a href="{{route('cursos.cadastrar')}}">Cursos</a></li>
                                 <li><a href="{{route('materia.cadastrar')}}">Matéria</a></li>
                                 <li><a href="{{route('pergunta.cadastrar')}}">Pergunta</a></li>
+                                <li><a href="{{route('chatbot.cadastrar')}}">Chatbot</a></li>
                             </div>
                         </ul>
                     </li>
@@ -57,6 +61,7 @@
                                 <li><a href="{{route('cursos.listar')}}">Cursos</a></li>
                                 <li><a href="{{route('materia.listar')}}">Matéria</a></li>
                                 <li><a href="{{route('pergunta.listar')}}">Pergunta</a></li>
+                                <li><a href="{{route('chatbot.listar')}}">Chatbot</a></li>
                             </div>
                         </ul>
                     </li>

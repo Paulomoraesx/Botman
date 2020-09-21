@@ -20,8 +20,8 @@
 
 			<div class="boxLogin">
 				<div style="flex: 1; margin-bottom: 15px;">
-					<label for="login">Matricula:</label>
-					<input class="componenteInputLogin1" type="text" id="login" name="matricula" placeholder="Matricula.."/>
+					<label for="email">Matricula:</label>
+					<input class="componenteInputLogin1" type="text" id="email" name="email" placeholder="E-mail.."/>
 				</div>
 				<div style="flex: 1; margin-bottom: 5%">
 					<label for="senha">Senha:</label>

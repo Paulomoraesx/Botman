@@ -40,5 +40,5 @@ class BotManController extends Controller
         $bot->startConversation(new teste());
     }
 
- 
+    
 }

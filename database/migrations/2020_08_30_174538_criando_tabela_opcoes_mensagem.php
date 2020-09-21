@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CriandoAlteracaoTabelaChatbot extends Migration
+class CriandoTabelaOpcoesMensagem extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,10 @@ class CriandoAlteracaoTabelaChatbot extends Migration
      */
     public function up()
     {
-        Schema::table('chatbots', function (Blueprint $table) {
-            //
+        Schema::create('opcoes_mensagem', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('descricao_opcao');
+            $table->timestamps();
         });
     }
 
@@ -25,8 +27,6 @@ class CriandoAlteracaoTabelaChatbot extends Migration
      */
     public function down()
     {
-        Schema::table('chatbots', function (Blueprint $table) {
-            //
-        });
+        //
     }
 }

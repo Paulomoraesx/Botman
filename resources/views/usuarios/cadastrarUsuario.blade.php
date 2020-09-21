@@ -16,15 +16,9 @@
 					</div>
 					@endif
 					<!--[FIM ]CADASTRO  INCOMPLETO    -->
-    <form action="{{route('dadosUsuario')}}" method="post" enctype="multipart/form-data">
+    <form action="{{route('usuarios.salvar')}}" method="post" enctype="multipart/form-data">
         @csrf
         <div class="boxCadastro">
-            <div class="itemBoxCadastro">
-                <label for="matricula">Matricula*:</label>
-                <input class="componenteInputCadastro" type="text" id="matricula" name="matricula"
-                       placeholder="Matricula.."/>
-            </div>
-
             <div class="itemBoxCadastro">
                 <label for="nome">Nome*:</label>
                 <input class="componenteInputCadastro" type="text" id="nome" name="nome" placeholder="Nome.."/>
@@ -41,24 +35,18 @@
             <div class="itemBoxCadastro">
                 <label for="usuario">Usuario*:</label>
                 <select name="tipo_cadastro" id="usuario">
-                    <option label="Aluno" value="aluno"></option>
-                    <option label="Professor" value="professor"></option>
+                    <option label="Aluno" value="A"></option>
+                    <option label="Professor" value="P"></option>
                 </select>
             </div>
 
             <div class="itemBoxCadastro">
-                <label for="curso">Curso*:</label>
-                <select name="curso_id" id="curso">
-                    @foreach($cursos as $curso)
-                    <option value="{{$curso->id}}">{{$curso->descricao_curso}}</option>
+                <label for="materia">Matéria*:</label>
+                <select name="materia_id" id="materia">
+                    @foreach($materias as $materia)
+                    <option value="{{$materia->id}}">{{$materia->descricao_materia}}</option>
                     @endforeach
                 </select>
-            </div>
-
-            <div class="itemBoxCadastro">
-                <label for="telefone">Telefone*:</label>
-                <input class="componenteInputCadastro" type="text" id="telefone" name="telefone"
-                       placeholder="11-11111.1111"/>
             </div>
         </div>
         <div><input type="submit" class="button" value="Cadastrar"/></div>

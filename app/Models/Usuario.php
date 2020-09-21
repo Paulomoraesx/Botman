@@ -6,10 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Usuario extends Model
 {
-    protected $fillable = ['matricula','nome','email','senha','tipo_cadastro','curso_id'];
+    protected $fillable = ['nome','email','senha','tipo_cadastro','materia_id', 'ativo'];
 
-public function curso() {
-        return $this->belongsTo('App\Models\Curso');
+public function materia() {
+        return $this->belongsTo('App\Models\Materia');
     }
 }
 

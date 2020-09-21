@@ -2,54 +2,56 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Materia;
 use Illuminate\Http\Request;
 use App\Models\Usuario;
 use App\Models\Curso;
 
 class UsuariosController extends Controller
 {
-    public function editar($id) {
-        $dados['cursos'] = Curso::all();
+    public function redirecionarParaTelaDeEditar($id) {
+        $dados['materias'] = Materia::all();
         return view("usuarios/alterarUsuario",[
             'usuarios'=>Usuario::findorfail($id)
         ], $dados);
     }
  
-    public function listar() {
+    public function listarUsuarios() {
         $dados['usuarios'] = Usuario::all();
         return view('usuarios/listarUsuarios', $dados);
     }
-    public function alterar(Request $request, $id){
+
+    public function salvarAlteracao(Request $request, $id){
         $request->validate([
-            'matricula' => 'required',
             'nome' => 'required',
             'email' => 'required',
             'senha' => 'required',
-            'curso_id' => 'required',
+            'materia_id' => 'required',
             ]);
             Usuario::where('id',$id)->update($request->except('_token'));
             return redirect()->route('usuarios.listar')->with('acao', 'Atualizado com sucesso');
 
     }
+
     public function visualizar($id){
         $dados['usuario'] = Usuario::find($id);
         return view('usuarios/visualizarUsuario', $dados);
     }
-    public function dadosUsuario(Request $request ){
+
+    public function salvarNovoUsuario(Request $request ){
         $request->validate([
-                'matricula' => 'required',
                 'nome' => 'required',
                 'email' => 'required',
                 'senha' => 'required',
                 'tipo_cadastro' => 'required',
-                'curso_id' => 'required',
+                'materia_id' => 'required',
                 ]);
                 Usuario::create($request->all());
                 
         return redirect()->route('usuarios.listar')->with('acao','Cadastrado com sucesso!');
      }
-     public function cadastrar(){
-         $dados['cursos'] = Curso::all();
+     public function redirecionarParaTelaDeCadastroUsuario(){
+         $dados['materias'] = Materia::all();
         return view('usuarios/cadastrarUsuario', $dados);
     }
     public function excluir($id){
