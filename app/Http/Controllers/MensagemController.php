@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mensagem;
+use App\OpcoesMensagem;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
@@ -51,8 +52,9 @@ class MensagemController extends Controller
     public function redirecionarParaTelaDeCadastro($id){
         //falta implementar view
         Session::put('CHATBOTID', $id);
-        $dados['mensagem'] = Mensagem::all();
-        return view('mensagem/cadastrarMensagem');
+        $dados['mensagems'] = Mensagem::all();
+        $dados['opcoes'] = OpcoesMensagem::all();
+        return view('mensagem/cadastrarMensagem', $dados);
     }
 
     public function excluir($id){
@@ -63,16 +65,35 @@ class MensagemController extends Controller
 
     public function teste(Request $request){
         dd($request);
-        if($request->get('mensagem') == null){
-            $response['sucesso'] = false;
-            $response['mensagem'] = "A mensagem não pode estar vazia";
+        $request->session()->get("CHATBOTID");
+        $request->validate([
+            'mensagem' => 'required',
+        ]);
+        $verificandoMensagemInicial = Mensagem::where('chatbot_id', $request->session()->get("CHATBOTID"))->where('inicial', true)->first();
+        $mensagem = new Mensagem();
+        $mensagem->mensagem = $request->mensagem;
+        if($verificandoMensagemInicial == null){
+            $mensagem->inicial = true;
         }else{
-            $response['sucesso'] = true;
-            $response['mensagem'] = $request->get('mensagem');
-            $response['opcao'] = $request->get('opcao');
+            $mensagem->inicial = false;
+        }
+        $mensagem->chatbot_id = $request->session()->get("CHATBOTID");
+
+        $mensagem->save();
+        if($request->get('opcoes') > 0){
+            foreach ($request->get('opcoes') as $opcao){
+                $newOpcao = new OpcoesMensagem();
+                $newOpcao->descricao_opcao = $opcao;
+                $newOpcao->mensagem_id_destino = null;
+                $newOpcao->mensagem_id_origem = $mensagem->id;
+                $newOpcao->save();
+            }
         }
 
-        echo json_encode($response);
+    }
+
+    public function deletarOpcao(Request $request){
+        OpcoesMensagem::where('id',$request->get('idToRemove'))->delete();
     }
 
     public function cadastrarMensagemInicial(){
@@ -80,25 +101,7 @@ class MensagemController extends Controller
     }
 
     public function listarOpcoesParaNovaPergunta(Request $request){
-         /*echo $request;*/
-
-        $id = json_decode($request->id);
-
-
-
-        $mensagemInicial = Mensagem::where('chatbot_id', $id)
-            ->where('inicial', true)->get();
-        var_dump($mensagemInicial);
-        if(!empty($mensagemInicial)){
-            echo 'ta vazio';
-        }else{
-            echo 'tem coisa';
-        }
-       /* $request->merge([
-            'texto' => 'CHUPA MEU CU'
-        ]);
-        echo json_encode($request->all());*/
-
-
+        $opcoes = OpcoesMensagem::all();
+        echo json_encode($opcoes);
     }
 }

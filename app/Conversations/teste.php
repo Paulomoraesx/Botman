@@ -19,20 +19,22 @@ class teste extends Conversation
     public function iniciarConversa()
     {
         //essa função deve recuperar o id do chatbot da sessão e chamar a função exibirMensagens();
+        $dados = [
+            Button::create('Sim')->value('yes'),
+            Button::create('Não')->value('no'),
+        ];
         // é possivel adicionar os botões num array antes de jogar no addButtons
         $question = Question::create('Você precisa de ajuda ?')
             ->fallback('Unable to create a new database')
             ->callbackId('create_database')
-            ->addButtons([
-                Button::create('Sim')->value('yes'),
-                Button::create('Não')->value('no'),
-            ]);
+            ->addButtons(
+                $dados);
     
         $this->ask($question, function (Answer $answer) {
             // Detect if button was clicked:
             if ($answer->isInteractiveMessageReply()) {
                 if($answer == 'yes'){
-                    $this->askAssunto();
+                    $this->buscarMensagem(null, null);
                 }
                 $selectedValue = $answer->getValue(); // will be either 'yes' or 'no'
                 $selectedText = $answer->getText(); // will be either 'Of course' or 'Hell no!'
@@ -76,7 +78,7 @@ class teste extends Conversation
             $this->stillNeedHelp = $answer->getText();
 
             if($answer->getText() == 'sim'){
-                $this->buscarMensagem();
+                $this->buscarMensagem(null, null);
             }
         });
     }

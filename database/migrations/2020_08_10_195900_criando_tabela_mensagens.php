@@ -31,6 +31,6 @@ class CriandoTabelaMensagens extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('mensagens');
+        Schema::dropIfExists('mensagems');
     }
 }

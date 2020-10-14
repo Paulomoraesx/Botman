@@ -13,7 +13,7 @@ class CriandoTabelaOpcoesMensagem extends Migration
      */
     public function up()
     {
-        Schema::create('opcoes_mensagem', function (Blueprint $table) {
+        Schema::create('opcoes_mensagems', function (Blueprint $table) {
             $table->increments('id');
             $table->string('descricao_opcao');
             $table->timestamps();

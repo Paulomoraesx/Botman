@@ -14,8 +14,8 @@ class CriandoAlteracaoTabelaOpcoesMensagem extends Migration
     public function up()
     {
 
-        Schema::table('opcoes_mensagem', function (Blueprint $table) {
-            $table->integer("mensagem_id_destino")->unsigned();
+        Schema::table('opcoes_mensagems', function (Blueprint $table) {
+            $table->integer("mensagem_id_destino")->unsigned()->nullable();
             $table->foreign('mensagem_id_destino')->references('id')->on('mensagems');
             $table->integer("mensagem_id_origem")->unsigned();
             $table->foreign('mensagem_id_origem')->references('id')->on('mensagems');
