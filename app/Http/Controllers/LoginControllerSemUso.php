@@ -1,13 +1,14 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
-class LoginController extends Controller
+class LoginControllerSemUso extends Controller
 {
     /*
     |--------------------------------------------------------------------------
@@ -35,32 +36,33 @@ class LoginController extends Controller
      * @return void
      */
     public function __construct()
-    {
-        $this->middleware('guest')->except('logout');
-    }
+{
+    $this->middleware('guest')->except('logout');
+}
 
     public function welcome(){
-        return view('welcome');
-    }
+    return view('welcome');
+}
 /*    public function login(){
     }*/
     public function logout(){
-        Auth::logout();
-        return redirect('/login');
-    }
+    Auth::logout();
+    return redirect('/login');
+}
+
     public function cadastros(){
-        return view('cadastros');
-    }
+    return view('cadastros');
+}
     public function listagem(){
-        return view('listagem');
-    }
+    return view('listagem');
+}
     public function venda(){
-        return view('venda');
-    }
+    return view('venda');
+}
     public function autenticar(){
-        return view('welcome');
-    }
+    return view('welcome');
+}
     public function criandoChatBot(){
-        return view('criandoChatBot');
-    }
+    return view('criandoChatBot');
+}
 }

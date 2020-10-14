@@ -1,11 +1,11 @@
-<!DOCTYPE HTML>
+<!--<!DOCTYPE HTML>
 <html>
 <head>
     <title></title>
     <meta charset="utf-8"/>
     <!-- JQUERY -->
     <script src="{{asset('assets/js/jquery-2.2.4.min.js')}}" type="text/javascript"></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.3.0/jquery.form.min.js"></script>
     <!-- BOOTSTRAP -->
     <link rel="stylesheet" href="{{asset('assets/css/bootstrap.min.css')}}">
     <link rel="stylesheet" href="{{asset('assets/css/font-awesome.min.css')}}">
@@ -17,6 +17,7 @@
 
     <script src="{{asset('assets/js/bootstrap.min.js')}}"></script>
 
+
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -25,23 +26,15 @@
 
 <body>
 
-<div id="wrapper">
+<!--<div id="wrapper">
     <div id="header" class="container">
         <div id="logo" class="cssLogo">
             <h1>Robo Monitor</h1>
         </div>
         <div id="menu">
+            <div id="app"></div>
             <nav id="nav">
-                <ul class="navbar-nav ml-auto">
-                    <!-- Authentication Links -->
-                    @guest
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('register') }}">{{ __('Registrar') }}</a>
-                    </li>
-                    @else
+                <ul>
                     <li class="current"><a href="{{route('home')}}">Inicio</a></li>
                     <li>
                         <a class="btns-nav">Cadastros</a>
@@ -60,6 +53,8 @@
                         <ul>
                             <div class="fundoEscolhasNav">
                                 <li><a href="{{route('usuarios.listar')}}">Usuario</a></li>
+                                <li><a href="{{route('professors.listar')}}">Professor</a></li>
+                                <li><a href="{{route('alunos.listar')}}">Aluno</a></li>
                                 <li><a href="{{route('cursos.listar')}}">Cursos</a></li>
                                 <li><a href="{{route('materia.listar')}}">Matéria</a></li>
                                 <li><a href="{{route('pergunta.listar')}}">Pergunta</a></li>
@@ -77,27 +72,25 @@
                     </li>
                     <li>
                         <a class="btns-nav">{{ Auth::user()->nome }}</a>
-                        <ul>
-                            <div class="fundoEscolhasNav">
-                                <li>
-                                    <a href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
+                            <ul>
+                                    <div class="fundoEscolhasNav">
+                                        <li>
+                                            <a href="{{ route('logout') }}"
+                                                       onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
-                                    </a>
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST">
-                                        @csrf
-                                    </form>
-                                </li>
-                            </div>
-                        </ul>
+                                                        {{ __('Logout') }}
+                                                    </a>
+                                                    <form id="logout-form" action="{{ route('logout') }}" method="POST">
+                                                        @csrf
+                                                    </form>
+                                        </li>
+                                    </div>
+                            </ul>
                     </li>
-                    @endguest
                 </ul>
-
             </nav>
         </div>
-    </div>
+    </div>-->
     <div id="conteudo_principal">
         @yield('conteudo_principal')
     </div>

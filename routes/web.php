@@ -12,16 +12,16 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('home');
 });
 
 Route::match(['get', 'post'], '/botman', 'BotManController@handle');
 Route::get('/botman/tinker', 'BotManController@tinker');
 
+/*
+Route::get('/welcome', 'LoginController@welcome')->name('home');*/
 
-Route::get('/inicio', 'LoginController@inicio')->name('inicio');
-
-Route::get('/', 'LoginController@login')->name('login');
+/*Route::get('/', 'LoginController@login')->name('login');*/
 
 Route::get('/criandochatbot', 'LoginController@criandochatbot')->name('criandoChatBot');
 
@@ -115,4 +115,8 @@ Route::get('listagem', 'LoginController@listagem')->name('listagem');
 Route::get('venda', 'LoginController@venda')->name('venda');
 Route::get('/login', 'LoginController@login')->name('login');
 
-Route::post('login', 'LoginController@autenticar')->name('autenticar');
+Route::post('/login', 'LoginController@login')->name('login');
+Auth::routes();
+Route::get('/register', 'Auth\RegisterController@redirecionarParaCad')->name('register');
+Route::get('/logout', 'LoginController@logout')->name('logout');
+Route::get('/home', 'HomeController@index')->name('home');

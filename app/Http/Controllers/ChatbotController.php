@@ -4,14 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Chatbot;
 use App\Models\Materia;
-use App\Models\Usuario;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 
 class ChatbotController extends Controller
 {
     public function redirecionarParaTelaDeEdicao($id) {
-        $dados['usuario'] = Usuario::all();
+        $dados['usuario'] = User::all();
         return view("Chatbot/alterarChatbot",[
             'chatbot'=>Chatbot::findorfail($id)
         ], $dados);
@@ -31,9 +32,9 @@ class ChatbotController extends Controller
 
     public function salvarNovoChatBot(Request $request ){
         //falta implementar view
-        $autor = Session::get('USUARIO_LOGADO');
+        $autor = Auth::id();
         $request->merge([
-            'autor_id' => $autor->id
+            'autor_id' => $autor
         ]);
         $request->validate([
             'titulo' => 'required',
