@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\User;
+use App\Models\Curso;
+use App\Models\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -48,9 +49,13 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => 'required|string|max:255',
+            'matricula' => 'required|integer',
+            'nome' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
+            'remember_token' => 'string',
+            'tipo_cadastro' => 'required',
+            'curso_id' => 'required',
         ]);
     }
 
@@ -63,9 +68,16 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         return User::create([
-            'name' => $data['name'],
+            'matricula' => $data['matricula'],
+            'nome' => $data['nome'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
+            'tipo_cadastro' => $data['tipo_cadastro'],
+            'curso_id' => $data['curso_id'],
         ]);
+    }
+    public function redirecionarParaCad(){
+        $dados['cursos'] = Curso::all();
+        return view('register', $dados);
     }
 }

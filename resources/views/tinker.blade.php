@@ -8,9 +8,6 @@
 
         <div class="gallery">
 
-				<div class="boxA">
-				</div>
-
 				<div class="boxB" style="background-color:#79C255">
                     <div class="content" id="app">
                         <botman-tinker api-endpoint="/botman" style="background-color:#79C255; border:gray 1px solid;"></botman-tinker>

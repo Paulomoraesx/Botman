@@ -1,4 +1,5 @@
 @extends('template')
+
 @section('conteudo_principal')
 <div id="page" class="container">
 		<div class="title">
@@ -16,20 +17,20 @@
 			    </thead>
 			    <!-- DADOS -->
 			    <tbody>
-					@foreach ($usuarios as $usuario)
+					@foreach ($users->all() as $user)
 					<tr>
-						<td>{{$usuario['nome']}}</td>
-						<td>{{$usuario['email']}}</td>
-                        <td>{{$usuario['tipo_cadastro']}}</td>
-						<td>{{$usuario->materia->descricao_materia}}</td>
+						<td>{{$user['nome']}}</td>
+						<td>{{$user['email']}}</td>
+                        <td>{{$user['tipo_cadastro']}}</td>
+						<td>{{$user->curso->descricao_curso}}</td>
 
 						<td>
-							<a href="{{route('usuarios.visualizar', ['id' => $usuario['id']])}}" class="fa fa-eye" style="text-decoration:none"></a>
-							<a href="{{route('usuarios.editar', ['id' => $usuario['id']])}}" class="fa fa-pencil" style="text-decoration:none"></a>
-							<a href="{{route('usuarios.excluir',['id' => $usuario['id']])}}" class="fa fa-trash" style="text-decoration:none"></a>
+							<a href="{{route('usuarios.visualizar', ['id' => $user['id']])}}" class="fa fa-eye" style="text-decoration:none"></a>
+							<a href="{{route('usuarios.editar', ['id' => $user['id']])}}" class="fa fa-pencil" style="text-decoration:none"></a>
+							<a href="{{route('usuarios.excluir',['id' => $user['id']])}}" class="fa fa-trash" style="text-decoration:none"></a>
 						</td>
-					</tr>	
-					@endforeach	 
+					</tr>
+					@endforeach
 			    </tbody>
 			    <!-- DADOS [FIM] -->
 			</table>

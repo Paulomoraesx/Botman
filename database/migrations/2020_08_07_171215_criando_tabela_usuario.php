@@ -13,14 +13,16 @@ class CriandoTabelaUsuario extends Migration
      */
     public function up()
     {
-        Schema::create('usuarios', function (Blueprint $table) {
+        Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('matricula');
             $table->string('nome');
             $table->string('email');
-            $table->string('senha');
+            $table->string('password');
+            $table->string('remember_token')->default('0');;
             $table->string('tipo_cadastro');
-            $table->integer('materia_id')->unsigned();
-            $table->foreign('materia_id')->references('id')->on('materias');
+            $table->integer('curso_id')->unsigned();
+            $table->foreign('curso_id')->references('id')->on('cursos');
             $table->timestamps();
         });
 

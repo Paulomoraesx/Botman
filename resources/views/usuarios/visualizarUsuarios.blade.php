@@ -17,12 +17,11 @@
 			</thead>
 			<tbody>
 				<tr>
-					<td>{{$professor['matricula']}}</td>
-					<td>{{$professor['nome']}}</td>
-					<td>{{$professor['cpf']}}</td>
-					<td>{{$professor->curso->descricao_curso}}</td>
-					<td>{{$professor['telefone']}}</td>
-					<td><a href="{{route('professors.editar', ['id' => $professor['id']])}}" class="fa fa-pencil" style="text-decoration:none"></a></td>
+					<td>{{$user['matricula']}}</td>
+					<td>{{$user['nome']}}</td>
+                    <td>{{$user['tipo_cadastro']}}</td>
+					<td>{{$user->curso->descricao_curso}}</td>
+					<td><a href="{{route('usuarios.editar', ['id' => $user['id']])}}" class="fa fa-pencil" style="text-decoration:none"></a></td>
 				</tr>
 			</tbody>
 		</table>

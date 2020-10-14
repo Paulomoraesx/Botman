@@ -1,6 +1,7 @@
 @extends('template')
 
 @section('conteudo_principal')
+
 <div id="featured">
 		<div class="container">
 			<div class="title">
@@ -47,7 +48,7 @@
 		<p>Utilizando nosso chatbot você aluno poderá tirar suas duvidas em qualquer momento do dia sem perder tempo, 
 		e podendo realizar as suas atividades e trabalhos com mais agilidade</p>
 		<ul class="actions">
-			<li><a href="#" class="button">Crie sua conta</a></li>
+			<li><a  class="button">Crie sua conta</a></li>
 		</ul>
 	</div>
 </div>

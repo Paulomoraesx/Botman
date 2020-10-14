@@ -92,5 +92,22 @@
 	padding: 20px;
 	border-bottom: 2px solid #79C255;
 	border-radius: 15px;
-
+}
+.navLoginRegistro{
+	margin: 2px;
+	padding: 3px;
+	color: rgba(15, 24, 33, 0.85);
+	border: 2px solid rgba(15, 24, 33, 0.85);;
+	border-radius: 4px;
+}
+.header-card-estilo{
+	padding: .75rem 1.25rem;
+	margin-bottom: 0;
+	color: white;
+	background-color: #79c255;
+	border-bottom: 1px solid rgba(0,0,0,.125);
+}
+.botao-login-estilo{
+	color: white;
+	background-color: #79c255;
 }

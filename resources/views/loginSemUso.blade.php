@@ -14,7 +14,7 @@
 			</div>
 		@endif
 
-		<form action="{{route('autenticar')}}" method="post" enctype="multipart/form-data">
+		<form action="{{route('inicio')}}" method="post" enctype="multipart/form-data">
 		@csrf
 		<div class="gallery">
 
@@ -27,6 +27,9 @@
 					<label for="senha">Senha:</label>
 					<input class="componenteInputLogin2" type="password" id="senha" name="senha" placeholder="********"/>
 				</div>
+                <div style="flex: 1; margin-bottom: 5%">
+                    <label ></label>
+                </div>
 
 			</div>
 					<div class="btns-login">

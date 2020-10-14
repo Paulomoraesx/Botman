@@ -17,7 +17,7 @@ class CriandoTabelaChatbot extends Migration
             $table->increments('id');
             $table->string('titulo');
             $table->integer('autor_id')->unsigned();
-            $table->foreign('autor_id')->references('id')->on('usuarios');
+            $table->foreign('autor_id')->references('id')->on('users');
             $table->integer('materia_id')->unsigned();
             $table->foreign('materia_id')->references('id')->on('materias');
             $table->timestamps();

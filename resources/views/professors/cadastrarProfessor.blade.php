@@ -2,6 +2,7 @@
 
 @section('conteudo_principal')
 
+
 <div id="page" class="container">
     <div class="title">
         <h2>Cadastro do professor</h2>
