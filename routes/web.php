@@ -91,7 +91,7 @@ Route::group(['prefix' => 'mensagem'], function () {
     Route::get('/vizualizar/{id}', 'MensagemController@visualizarPergunta')->name('mensagem.visualizar');
     Route::get('/excluir/{id}', 'MensagemController@excluirPergunta')->name('mensagem.excluir');
     Route::post('/cadastrarPergunta', 'MensagemController@cadastrarPergunta')->name('mensagem.executarCadastro');
-    Route::post('/', 'MensagemController@teste')->name('mensagem.teste');
+    Route::post('/', 'MensagemController@cadastrarMensagem')->name('mensagem.cadastrarMensagem');
     Route::delete('/delete', 'MensagemController@deletarOpcao')->name('mensagem.deletarOpcao');
     Route::post('/opcao', 'MensagemController@listarOpcoesParaNovaPergunta')->name('mensagem.listarOpcoes');
 });

@@ -26,14 +26,17 @@
     <div id="mensagens">
         @foreach ($mensagems->all() as $mensagem)
         <hr class='solid'>
-        <form name='form' class='formMensagem' action=\"{{route('mensagem.teste')}}\" method=\"post\" enctype=\"multipart/form-data\">
+        <form name='form' class='formMensagem' action=\"{{route('mensagem.cadastrarMensagem')}}\" method=\"post\" enctype=\"multipart/form-data\">
             @csrf
             <div class='boxCadastro'>
                 @if($mensagem->inicial !=true)
-                <div class="itemBoxCadastro">
+                <div class="div-opcoes">
                     <label for="dropdown">Selecione a opção que irá chamar está mensagem:</label>
-                    <select name="opcao-id" id="dropdown" class="dropdown-select">
-
+                    <select name="mensagem_id_origem" id="dropdown" class="dropdown-select">
+                        <option value="">Nenhuma Opção</option>
+                        @foreach($opcoes->all() as $opcao)
+                            <option value="{{$opcao['id']}}">{{$opcao['descricao_opcao']}}</option>
+                        @endforeach
                     </select>
                 </div>
                 @endif
@@ -59,7 +62,9 @@
                                     </div>
                             </row>
                         </div>
-                    <div><input type='submit' class='button' value='Atualizar'/></div>
+                    <div class="div-button">
+                        <input type='submit' class='button atualizar' value='Atualizar'/>
+                    </div>
             </form>
         @endforeach
     </div>
@@ -69,10 +74,10 @@
         $('#adicionar-mensagem').click(function () {
             $("#mensagens").append(
                 "<hr class='solid'>" +
-                "<form name='form' class='formMensagem' action=\"{{route('mensagem.teste')}}\" method=\"post\" enctype=\"multipart/form-data\">" +
+                "<form name='form' class='formMensagem' action=\"{{route('mensagem.cadastrarMensagem')}}\" method=\"post\" enctype=\"multipart/form-data\">" +
                 "<div class='boxCadastro'>" +
                 "            <div class='itemBoxCadastro'>"+
-                "                <div class='itemBoxCadastro'>" +
+                "                <div class='div-opcoes'>" +
                 "                    <label for='dropdown'>Selecione a opção que irá chamar está mensagem:</label>" +
                 "                    <select name='opcao-id' id='dropdown' class='dropdown-select'>" +
                 "                    </select>" +
@@ -90,7 +95,9 @@
                 "                </div>" +
                 "            </row>" +
                 "        </div>" +
-                "        <div><input type='submit' class='button' value='Cadastrar'/></div>" +
+                "        <div class='div-button'>" +
+                "           <input type='submit' class='button' value='Cadastrar'/>" +
+                "        </div>" +
                 "</form>"
             );
             $('.opcao').attr('id', function(i) {
@@ -109,6 +116,12 @@
             let idDropDown;
             $('.dropdown-select').attr('id', function(i) {
                 idDropDown = i;
+                return i;
+            });
+            $('.div-button').attr('id', function(i) {
+                return i;
+            });
+            $('.div-opcoes').attr('id', function(i) {
                 return i;
             });
             $.ajax({
@@ -226,7 +239,6 @@
                 event.preventDefault()
                 let id= $(this).attr('id');
                 let buttonClicked = $(this);
-                let url = window.location.pathname;
                 let formData = $(this).serialize();
                 console.log(formData);
 
@@ -237,7 +249,7 @@
                 buttonClicked.data('requestRunning', true);
 
                 $.ajax({
-                    url: "{{ route('mensagem.teste') }}",
+                    url: "{{ route('mensagem.cadastrarMensagem') }}",
                     type: "post",
                     data: formData,
                     dataType : 'json',
@@ -245,10 +257,44 @@
                         return request.setRequestHeader('X-CSRF-Token', $("meta[name='csrf-token']").attr('content'));
                     },
                     success: function (response) {
-                        console.log(response)
+                        console.log("resposta:"+response);
+                        if(response['inicial']===true){
+                            $('div#'+id+'.div-opcoes').remove();
+                        }
+                        if(response['novaOpcao']===true){
+                            $.ajax({
+                                type: "POST",
+                                url: "{{ route('mensagem.listarOpcoes') }}",
+                                beforeSend: function (request){
+                                    return request.setRequestHeader('X-CSRF-Token', $("meta[name='csrf-token']").attr('content'));
+                                },
+                                success: function(data)
+                                {
+                                    helpers.buildDropdown(
+                                        jQuery.parseJSON(data),
+                                        $('.dropdown-select'),
+                                        'Nenhuma Opção'
+                                    );
+                                }
+                            });
+                            let helpers = {
+                                buildDropdown: function(result, dropdown, emptyMessage)
+                                {
+                                    dropdown.html('');
+                                    dropdown.append('<option value="">'+emptyMessage+'</option>');
+                                    if(result != '')
+                                    {
+                                        $.each(result, function(k, v) {
+                                            dropdown.append('<option value="'+v.id+'">'+ v.descricao_opcao +'</option>');
+                                        });
+                                    }
+                                }
+                            }
+                        }
                     },
                     complete: function () {
-                        console.log('complete')
+                        $('input#'+id+'.button').remove();
+                        $('div#'+id+'.div-button').append("<input type='submit' class='button atualizar' value='Atualizar'/>");
                         buttonClicked.data('requestRunning', false);
                     }
                 });
@@ -286,11 +332,17 @@
             $('.dropdown-select').attr('id', function(i) {
                 return i;
             });
+            $('.div-button').attr('id', function(i) {
+                return i;
+            });
+            $('.div-opcoes').attr('id', function(i) {
+                return i;
+            });
         }
     </script>
 
     <script>
-        $.ajax({
+        /*$.ajax({
             type: "POST",
             url: "{{ route('mensagem.listarOpcoes') }}",
             beforeSend: function (request){
@@ -317,7 +369,7 @@
                     });
                 }
             }
-        }
+        }*/
     </script>
 
 </div>

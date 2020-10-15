@@ -63,8 +63,7 @@ class MensagemController extends Controller
         return redirect()->route('usuarios.listar')->with('acao','Exclusão Bem Sucedida');
     }
 
-    public function teste(Request $request){
-        dd($request);
+    public function cadastrarMensagem(Request $request){
         $request->session()->get("CHATBOTID");
         $request->validate([
             'mensagem' => 'required',
@@ -88,8 +87,11 @@ class MensagemController extends Controller
                 $newOpcao->mensagem_id_origem = $mensagem->id;
                 $newOpcao->save();
             }
+            $response['novaOpcao'] = true;
         }
+        $response['inicial'] = $mensagem->inicial;
 
+        echo json_encode($response);
     }
 
     public function deletarOpcao(Request $request){
