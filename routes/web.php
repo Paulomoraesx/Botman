@@ -94,6 +94,7 @@ Route::group(['prefix' => 'mensagem'], function () {
     Route::post('/', 'MensagemController@cadastrarMensagem')->name('mensagem.cadastrarMensagem');
     Route::delete('/delete', 'MensagemController@deletarOpcao')->name('mensagem.deletarOpcao');
     Route::post('/opcao', 'MensagemController@listarOpcoesParaNovaPergunta')->name('mensagem.listarOpcoes');
+    Route::put('/update', 'MensagemController@atualizarMensagem')->name('mensagem.atualizarMensagem');
 });
 
 

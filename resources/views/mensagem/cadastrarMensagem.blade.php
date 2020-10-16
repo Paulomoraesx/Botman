@@ -26,13 +26,17 @@
     <div id="mensagens">
         @foreach ($mensagems->all() as $mensagem)
         <hr class='solid'>
-        <form name='form' class='formMensagem' action=\"{{route('mensagem.cadastrarMensagem')}}\" method=\"post\" enctype=\"multipart/form-data\">
+        <form name='form' class='formMensagemAtualizar' action=\"{{route('mensagem.atualizarMensagem')}}\" method=\"put\" enctype=\"multipart/form-data\">
             @csrf
             <div class='boxCadastro'>
+                <div class="idMensagem">
+                    <input style="display: none" readonly="readonly" class="mensagemId" value="{{$mensagem->id}}"/>
+                </div>
+
                 @if($mensagem->inicial !=true)
                 <div class="div-opcoes">
                     <label for="dropdown">Selecione a opção que irá chamar está mensagem:</label>
-                    <select name="mensagem_id_origem" id="dropdown" class="dropdown-select">
+                    <select name="mensagem_id_destino" id="dropdown" class="dropdown-select">
                         <option value="">Nenhuma Opção</option>
                         @foreach($opcoes->all() as $opcao)
                             <option value="{{$opcao['id']}}">{{$opcao['descricao_opcao']}}</option>
@@ -76,10 +80,12 @@
                 "<hr class='solid'>" +
                 "<form name='form' class='formMensagem' action=\"{{route('mensagem.cadastrarMensagem')}}\" method=\"post\" enctype=\"multipart/form-data\">" +
                 "<div class='boxCadastro'>" +
-                "            <div class='itemBoxCadastro'>"+
+                "            <div class='itemBoxCadastro'>" +
+                "              <div class='idMensagem'>" +
+                "                </div>"+
                 "                <div class='div-opcoes'>" +
                 "                    <label for='dropdown'>Selecione a opção que irá chamar está mensagem:</label>" +
-                "                    <select name='opcao-id' id='dropdown' class='dropdown-select'>" +
+                "                    <select name='mensagem_id_destino' id='dropdown' class='dropdown-select'>" +
                 "                    </select>" +
                 "                </div>" +
                 "                <label style='float: left'>Descrição da mensagem*:</label>" +
@@ -96,7 +102,7 @@
                 "            </row>" +
                 "        </div>" +
                 "        <div class='div-button'>" +
-                "           <input type='submit' class='button' value='Cadastrar'/>" +
+                "           <input type='submit' class='button cadastrar' value='Cadastrar'/>" +
                 "        </div>" +
                 "</form>"
             );
@@ -110,9 +116,6 @@
             $('.formMensagem').attr('id', function(i) {
                 return i;
             });
-            $('.button').attr('id', function(i) {
-                return i;
-            });
             let idDropDown;
             $('.dropdown-select').attr('id', function(i) {
                 idDropDown = i;
@@ -122,6 +125,9 @@
                 return i;
             });
             $('.div-opcoes').attr('id', function(i) {
+                return i;
+            });
+            $('.idMensagem').attr('id', function(i) {
                 return i;
             });
             $.ajax({
@@ -200,7 +206,93 @@
                 complete: function () {
                     buttonClicked.data('requestRunning', false);
                 }
-            });
+            })
+            listarOpcoes();
+
+
+        })
+    </script>
+
+    <script>
+        $(document).on('click','input.button.cadastrar', function () {
+            $('form[class="formMensagem"]').submit(function (event) {
+                event.preventDefault()
+                let id= $(this).attr('id');
+                let buttonClicked = $(this);
+                let formData = $(this).serialize();
+                if(buttonClicked.find('.mensagemId').val() !== undefined){
+                    return
+                }
+                if(buttonClicked.data('cadastroRodando')){
+                    return
+                }
+
+                buttonClicked.data('cadastroRodando', true);
+                $.ajax({
+                    url: "{{ route('mensagem.cadastrarMensagem') }}",
+                    type: "post",
+                    data: formData,
+                    dataType : 'json',
+                    beforeSend: function (request){
+                        return request.setRequestHeader('X-CSRF-Token', $("meta[name='csrf-token']").attr('content'));
+                    },
+                    success: function (response) {
+                        $(buttonClicked.find('.idMensagem')).append("<input style='display: none' readonly='readonly' class='mensagemId' value="+ response['mensagemId'] +"  />")
+                        if (response['inicial'] === true) {
+                            $('div#' + id + '.div-opcoes').remove();
+                        }
+                        if (response['novaOpcao'] === true) {
+                            listarOpcoes();
+                        }
+                        $(buttonClicked.find('input.button.cadastrar')).remove();
+                        $(buttonClicked.find('.div-button')).append('<input type="submit" class="atualizar button" value="Atualizar" />');
+                        $(buttonClicked).attr({
+                            "class": 'formMensagemAtualizar',
+                            "method": 'put',
+                            "action" : "{{route('mensagem.atualizarMensagem')}}"
+                        })
+                    },
+                    complete: function () {
+                        buttonClicked.data('cadastroRodando', false)
+                    }
+                });
+            })
+        })
+
+        $(document).on('click', 'input.button.atualizar' ,function () {
+            $('form[class="formMensagemAtualizar"]').submit(function (event) {
+                event.preventDefault()
+                let buttonClicked = $(this);
+                let formData = $(this).serialize();
+
+                if(buttonClicked.data('atualizacaoRodando')){
+                    return
+                }
+
+                buttonClicked.data('atualizacaoRodando', true);
+
+                $.ajax({
+                    url: "{{ route('mensagem.atualizarMensagem') }}",
+                    type: "put",
+                    data: formData,
+                    dataType : 'json',
+                    beforeSend: function (request){
+                        return request.setRequestHeader('X-CSRF-Token', $("meta[name='csrf-token']").attr('content'));
+                    },
+                    success: function (response) {
+                        console.log("resposta:"+response);
+                        if(response['novaOpcao']===true){
+                            listarOpcoes()
+                        }
+                    },
+                    complete: function () {
+                        buttonClicked.data('atualizacaoRodando', false);
+                    }
+                });
+            })
+        })
+
+        function listarOpcoes(){
             $.ajax({
                 type: "POST",
                 url: "{{ route('mensagem.listarOpcoes') }}",
@@ -229,78 +321,11 @@
                     }
                 }
             }
+        }
 
-        })
+
     </script>
 
-    <script>
-        $('body').on('click','.button', function () {
-            $('form[class="formMensagem"]').submit(function (event) {
-                event.preventDefault()
-                let id= $(this).attr('id');
-                let buttonClicked = $(this);
-                let formData = $(this).serialize();
-                console.log(formData);
-
-                if(buttonClicked.data('requestRunning')){
-                    return
-                }
-
-                buttonClicked.data('requestRunning', true);
-
-                $.ajax({
-                    url: "{{ route('mensagem.cadastrarMensagem') }}",
-                    type: "post",
-                    data: formData,
-                    dataType : 'json',
-                    beforeSend: function (request){
-                        return request.setRequestHeader('X-CSRF-Token', $("meta[name='csrf-token']").attr('content'));
-                    },
-                    success: function (response) {
-                        console.log("resposta:"+response);
-                        if(response['inicial']===true){
-                            $('div#'+id+'.div-opcoes').remove();
-                        }
-                        if(response['novaOpcao']===true){
-                            $.ajax({
-                                type: "POST",
-                                url: "{{ route('mensagem.listarOpcoes') }}",
-                                beforeSend: function (request){
-                                    return request.setRequestHeader('X-CSRF-Token', $("meta[name='csrf-token']").attr('content'));
-                                },
-                                success: function(data)
-                                {
-                                    helpers.buildDropdown(
-                                        jQuery.parseJSON(data),
-                                        $('.dropdown-select'),
-                                        'Nenhuma Opção'
-                                    );
-                                }
-                            });
-                            let helpers = {
-                                buildDropdown: function(result, dropdown, emptyMessage)
-                                {
-                                    dropdown.html('');
-                                    dropdown.append('<option value="">'+emptyMessage+'</option>');
-                                    if(result != '')
-                                    {
-                                        $.each(result, function(k, v) {
-                                            dropdown.append('<option value="'+v.id+'">'+ v.descricao_opcao +'</option>');
-                                        });
-                                    }
-                                }
-                            }
-                        }
-                    },
-                    complete: function () {
-                        $('input#'+id+'.button').remove();
-                        $('div#'+id+'.div-button').append("<input type='submit' class='button atualizar' value='Atualizar'/>");
-                        buttonClicked.data('requestRunning', false);
-                    }
-                });
-            })
-        })
-    </script>
 
     <script>
         window.onload = function () {
@@ -312,9 +337,6 @@
                 return i;
             });
             $('.formMensagem').attr('id', function(i) {
-                return i;
-            });
-            $('.button').attr('id', function(i) {
                 return i;
             });
             $('.remove-opcao').attr('id', function(i) {
@@ -336,6 +358,12 @@
                 return i;
             });
             $('.div-opcoes').attr('id', function(i) {
+                return i;
+            });
+            $('.idMensagem').attr('id', function(i) {
+                return i;
+            });
+            $('.formMensagemAtualizar').attr('id', function(i) {
                 return i;
             });
         }

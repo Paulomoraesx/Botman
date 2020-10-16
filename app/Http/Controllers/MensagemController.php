@@ -90,9 +90,48 @@ class MensagemController extends Controller
             $response['novaOpcao'] = true;
         }
         $response['inicial'] = $mensagem->inicial;
-
+        $response['mensagemId'] = $mensagem->id;
         echo json_encode($response);
     }
+
+    public function atualizarMensagem(Request $request){
+
+        $request->session()->get("CHATBOTID");
+        $request->validate([
+            'mensagem' => 'required',
+        ]);
+        $mensagem = new Mensagem();
+        $mensagem->mensagem = $request->mensagem;
+        $mensagem->chatbot_id = $request->session()->get("CHATBOTID");
+
+        Mensagem::where('id', $mensagem->id)->update($mensagem);
+        dd($mensagem);
+        if ($request->get('opcoes') > 0) {
+            foreach ($request->get('opcoes') as $opcao) {
+                $newOpcao = new OpcoesMensagem();
+                $newOpcao = OpcoesMensagem::where('descricao_opcao', $opcao)->first();
+                if ($newOpcao->id !== null) {
+                    $newOpcao->descricao_opcao = $opcao;
+                    $newOpcao->mensagem_id_origem = $mensagem->id;
+                    OpcoesMensagem::where('id', $newOpcao->id)->update($newOpcao);
+
+                } else {
+                    $newOpcao->descricao_opcao = $opcao;
+                    $newOpcao->mensagem_id_origem = $mensagem->id;
+                    $newOpcao->save();
+                    $response['novaOpcao'] = true;
+                }
+            }
+            $response['inicial'] = $mensagem->inicial;
+            $response['mensagemId'] = $mensagem->id;
+
+        }
+
+
+        echo json_encode($response);
+
+    }
+
 
     public function deletarOpcao(Request $request){
         OpcoesMensagem::where('id',$request->get('idToRemove'))->delete();
