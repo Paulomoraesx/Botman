@@ -7,6 +7,7 @@ use App\Models\Materia;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 
 class ChatbotController extends Controller
@@ -17,10 +18,20 @@ class ChatbotController extends Controller
             'chatbot'=>Chatbot::findorfail($id)
         ], $dados);
     }
-
     public function listar() {
         $dados['chatbot'] = Chatbot::all();
         return view('Chatbot/listarChatbots', $dados);
+    }
+    public function listarChatbotsDeAcordoComCursoAluno() {
+        $teste = Auth::user();
+        $teste->curso_id;
+        $dados['chatbots'] = Chatbot::join('materias',  'chatbots.materia_id', '=', 'materias.id')
+            ->join('cursos', 'materias.curso_id', '=', 'cursos.id')
+            ->where('cursos.id',  $teste->curso_id)
+            ->select('chatbots.titulo')
+            ->get();
+        return view('Chatbot/listarChatbotsCurso', $dados);
+
     }
     public function salvarAlteracao(Request $request, $id){
         $request->validate([

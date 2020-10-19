@@ -33,6 +33,7 @@
     </div>
     <ul class="actions">
         <li><a href="{{route('criandoChatBot')}}" class="button">Crie seu chatbot</a></li>
+        <li><a href="{{route('chatbot.listarChatbot')}}" class="button">teste</a></li>
     </ul>
 </div>
 <div id="page" class="container">
