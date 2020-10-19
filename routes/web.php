@@ -84,16 +84,11 @@ Route::group(['prefix' => 'pergunta'], function () {
 });
 
 Route::group(['prefix' => 'mensagem'], function () {
-    Route::get('/gerenciarFluxo/{id}', 'MensagemController@redirecionarParaTelaDeCadastro')->name('mensagem.cadastrar');
-    Route::get('/listar', 'MensagemController@listarPergunta')->name('mensagem.listar');
-    Route::get('/editar/{id}', 'MensagemController@editarPergunta')->name('mensagem.editar');
-    Route::post('/alterar/{id}', 'MensagemController@alterarPergunta')->name('mensagem.alterar');
-    Route::get('/vizualizar/{id}', 'MensagemController@visualizarPergunta')->name('mensagem.visualizar');
-    Route::get('/excluir/{id}', 'MensagemController@excluirPergunta')->name('mensagem.excluir');
-    Route::post('/cadastrarPergunta', 'MensagemController@cadastrarPergunta')->name('mensagem.executarCadastro');
+    Route::get('/gerenciarFluxo/{id}', 'MensagemController@redirecionarParaTelaDeFluxo')->name('mensagem.cadastrar');
     Route::post('/', 'MensagemController@cadastrarMensagem')->name('mensagem.cadastrarMensagem');
     Route::delete('/delete', 'MensagemController@deletarOpcao')->name('mensagem.deletarOpcao');
     Route::post('/opcao', 'MensagemController@listarOpcoesParaNovaPergunta')->name('mensagem.listarOpcoes');
+    Route::post('/opcaoMensagem', 'MensagemController@listarOpcoesMensagem')->name('mensagem.listarOpcoesMensagem');
     Route::put('/update', 'MensagemController@atualizarMensagem')->name('mensagem.atualizarMensagem');
 });
 

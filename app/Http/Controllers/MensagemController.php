@@ -5,51 +5,14 @@ namespace App\Http\Controllers;
 use App\Mensagem;
 use App\OpcoesMensagem;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 
 
 class MensagemController extends Controller
 {
 
-    public function editar($id) {
-        //falta implementar view
-        $dados['mensagem'] = Mensagem::all();
-        return view("usuarios/alterarUsuario",[
-            'mensagem'=>Mensagem::findorfail($id)
-        ], $dados);
-    }
-
-    public function listar() {
-        //falta implementar view
-        $dados['mensagem'] = Mensagem::all();
-        return view('usuarios/listarUsuarios', $dados);
-    }
-    public function alterar(Request $request, $id){
-        //falta implementar view
-        $request->validate([
-            'texto' => 'required',
-            'inicial' => 'required'
-        ]);
-        Mensagem::where('id',$id)->update($request->except('_token'));
-        return redirect()->route('usuarios.listar')->with('acao', 'Atualizado com sucesso');
-
-    }
-    public function visualizar($id){
-        //falta implementar view
-        $dados['mensagem'] = Mensagem::find($id);
-        return view('usuarios/visualizarUsuario', $dados);
-    }
-    public function dadosUsuario(Request $request ){
-        //falta implementar view
-        $request->validate([
-            'texto' => 'required',
-            'inicial' => 'required'
-        ]);
-        Mensagem::create($request->all());
-
-        return redirect()->route('usuarios.listar')->with('acao','Cadastrado com sucesso!');
-    }
-    public function redirecionarParaTelaDeCadastro($id){
+    public function redirecionarParaTelaDeFluxo($id){
         //falta implementar view
         Session::put('CHATBOTID', $id);
         $dados['mensagems'] = Mensagem::all();
@@ -57,14 +20,7 @@ class MensagemController extends Controller
         return view('mensagem/cadastrarMensagem', $dados);
     }
 
-    public function excluir($id){
-        //falta implementar view
-        Mensagem::destroy($id);
-        return redirect()->route('usuarios.listar')->with('acao','Exclusão Bem Sucedida');
-    }
-
     public function cadastrarMensagem(Request $request){
-        $request->session()->get("CHATBOTID");
         $request->validate([
             'mensagem' => 'required',
         ]);
@@ -79,14 +35,8 @@ class MensagemController extends Controller
         $mensagem->chatbot_id = $request->session()->get("CHATBOTID");
 
         $mensagem->save();
-        if($request->get('opcoes') > 0){
-            foreach ($request->get('opcoes') as $opcao){
-                $newOpcao = new OpcoesMensagem();
-                $newOpcao->descricao_opcao = $opcao;
-                $newOpcao->mensagem_id_destino = null;
-                $newOpcao->mensagem_id_origem = $mensagem->id;
-                $newOpcao->save();
-            }
+        if($request->get('opcoesNovas') > 0){
+                $this->cadastrarOpcoesNovas(($request->get('opcoesNovas')), $mensagem->id);
             $response['novaOpcao'] = true;
         }
         $response['inicial'] = $mensagem->inicial;
@@ -95,50 +45,64 @@ class MensagemController extends Controller
     }
 
     public function atualizarMensagem(Request $request){
-
-        $request->session()->get("CHATBOTID");
+        $i=0;
         $request->validate([
             'mensagem' => 'required',
         ]);
-        $mensagem = new Mensagem();
+        $mensagem = Mensagem::find($request->get('mensagemId'));
         $mensagem->mensagem = $request->mensagem;
-        $mensagem->chatbot_id = $request->session()->get("CHATBOTID");
+        $mensagem->save();
+        $response['mensagemId'] = $mensagem->id;
+        $opcoesParaAtualizar = $request->get('opcao');
 
-        Mensagem::where('id', $mensagem->id)->update($mensagem);
-        dd($mensagem);
-        if ($request->get('opcoes') > 0) {
-            foreach ($request->get('opcoes') as $opcao) {
-                $newOpcao = new OpcoesMensagem();
-                $newOpcao = OpcoesMensagem::where('descricao_opcao', $opcao)->first();
-                if ($newOpcao->id !== null) {
-                    $newOpcao->descricao_opcao = $opcao;
-                    $newOpcao->mensagem_id_origem = $mensagem->id;
-                    OpcoesMensagem::where('id', $newOpcao->id)->update($newOpcao);
-
-                } else {
-                    $newOpcao->descricao_opcao = $opcao;
-                    $newOpcao->mensagem_id_origem = $mensagem->id;
-                    $newOpcao->save();
-                    $response['novaOpcao'] = true;
-                }
+        if ($request->get('opcao') > 0){
+            foreach ($request->get('opcaoId') as $id) {
+                $this->atualizarOpcoes($opcoesParaAtualizar[$i], $id);
+                $i++;
             }
-            $response['inicial'] = $mensagem->inicial;
-            $response['mensagemId'] = $mensagem->id;
-
+        }
+        if($request->get('opcoesNovas') > 0){
+            $this->cadastrarOpcoesNovas($request->get('opcoesNovas'), $mensagem->id);
+            $response['novaOpcao'] = true;
         }
 
+        if($request->get('mensagem_id_destino') != null){
+            $this->adicionarOpcaoDestino($request->get('mensagem_id_destino'), $mensagem->id);
+        }
 
         echo json_encode($response);
 
     }
 
+    private function adicionarOpcaoDestino($idOpcao ,$idDestino){
+        $destino = OpcoesMensagem::find($idOpcao);
+        $destino->mensagem_id_destino = $idDestino;
+        $destino->save();
+    }
+
+    private function cadastrarOpcoesNovas($opcoes, $idMensagem){
+        foreach ($opcoes as $opcao) {
+            $newOpcao = new OpcoesMensagem();
+            $newOpcao->descricao_opcao = $opcao;
+            $newOpcao->mensagem_id_destino = null;
+            $newOpcao->mensagem_id_origem = $idMensagem;
+            $newOpcao->save();
+        }
+    }
+
+    private function atualizarOpcoes($opcao, $id){
+        $update = OpcoesMensagem::find($id);
+        $update->descricao_opcao = $opcao;
+        $update->save();
+    }
 
     public function deletarOpcao(Request $request){
         OpcoesMensagem::where('id',$request->get('idToRemove'))->delete();
     }
 
-    public function cadastrarMensagemInicial(){
-
+    public function listarOpcoesMensagem(Request $request){
+        $opcoes = OpcoesMensagem::where('mensagem_id_origem', $request->get('idMensagem'))->get();
+        echo json_encode($opcoes);
     }
 
     public function listarOpcoesParaNovaPergunta(Request $request){

@@ -30,7 +30,7 @@
             @csrf
             <div class='boxCadastro'>
                 <div class="idMensagem">
-                    <input style="display: none" readonly="readonly" class="mensagemId" value="{{$mensagem->id}}"/>
+                    <input style="display: none" name="mensagemId" readonly="readonly" class="mensagemId" value="{{$mensagem->id}}"/>
                 </div>
 
                 @if($mensagem->inicial !=true)
@@ -39,7 +39,13 @@
                     <select name="mensagem_id_destino" id="dropdown" class="dropdown-select">
                         <option value="">Nenhuma Opção</option>
                         @foreach($opcoes->all() as $opcao)
+                            @if($opcao->mensagem_id_destino == $mensagem->id){
+                                <option value="{{$opcao['id']}}" selected="selected">{{$opcao['descricao_opcao']}}</option>
+                            }
+                        @else{
                             <option value="{{$opcao['id']}}">{{$opcao['descricao_opcao']}}</option>
+                            }
+                        @endif
                         @endforeach
                     </select>
                 </div>
@@ -58,7 +64,8 @@
                                         @foreach ($opcoes->all() as $opcao)
                                             @if($opcao['mensagem_id_origem'] == $mensagem->id)
                                             <div class='opcao-div' style='float: left'>
-                                                <input class='new-opcao' type='text' name='opcao[]' value="{{$opcao['descricao_opcao']}}" placeholder='Digite a opção'/>
+                                                <input class='new-opcao' multiple type='text' name='opcao[]' value="{{$opcao['descricao_opcao']}}" placeholder='Digite a opção'/>
+                                                <input hidden name="opcaoId[]" value="{{$opcao['id']}}"/>
                                                 <button type='submit' class='remove-opcao' value="{{$opcao['id']}}" name='remove'>X</button>
                                             </div>
                                             @endif
@@ -166,13 +173,10 @@
         $('body').delegate('.add-opcao', 'click', function() {
             let id = $(this).attr('id');
             $('div#'+id+'.opcao').append("<div class='opcao-div' style='float: left'> " +
-                "<input class='new-opcao' type='text' name='opcoes[]' placeholder='Digite a opção'/>" +
+                "<input class='new-opcao' type='text' name='opcoesNovas[]' placeholder='Digite a opção'/>" +
                 "<button type='submit' class='remove-opcao' name='remove'>X</button>" +
                 "</div>");
             $('.remove-opcao').attr('id', function(i) {
-                return i;
-            });
-            $('.new-opcao').attr('id', function(i) {
                 return i;
             });
             $('.opcao-div').attr('id', function(i) {
@@ -182,12 +186,9 @@
     </script>
 
     <script>
-        let idRemovido
         $('body').delegate('.remove-opcao', 'click', function() {
-            let id = $(this).attr('id');
-            idRemovido = $(this).attr('value');
-            console.log(idRemovido);
-            $(this).closest('div#'+id+'.opcao-div').remove();
+            $(this).closest('.opcao-div').remove();
+            let idRemovido = $(this).attr('value');
             let buttonClicked = $(this)
             if(buttonClicked.data('requestRunning')){
                 return
@@ -201,16 +202,14 @@
                     return request.setRequestHeader('X-CSRF-Token', $("meta[name='csrf-token']").attr('content'));
                 },
                 success: function (response) {
-                    console.log(response)
                 },
                 complete: function () {
                     buttonClicked.data('requestRunning', false);
                 }
             })
             listarOpcoes();
-
-
         })
+
     </script>
 
     <script>
@@ -237,12 +236,13 @@
                         return request.setRequestHeader('X-CSRF-Token', $("meta[name='csrf-token']").attr('content'));
                     },
                     success: function (response) {
-                        $(buttonClicked.find('.idMensagem')).append("<input style='display: none' readonly='readonly' class='mensagemId' value="+ response['mensagemId'] +"  />")
+                        $(buttonClicked.find('.idMensagem')).append("<input style='display: none' readonly='readonly' name='mensagemId' class='mensagemId' value="+ response['mensagemId'] +"  />")
                         if (response['inicial'] === true) {
                             $('div#' + id + '.div-opcoes').remove();
                         }
                         if (response['novaOpcao'] === true) {
                             listarOpcoes();
+                            organizarOpcoes(response['mensagemId'])
                         }
                         $(buttonClicked.find('input.button.cadastrar')).remove();
                         $(buttonClicked.find('.div-button')).append('<input type="submit" class="atualizar button" value="Atualizar" />');
@@ -268,9 +268,7 @@
                 if(buttonClicked.data('atualizacaoRodando')){
                     return
                 }
-
                 buttonClicked.data('atualizacaoRodando', true);
-
                 $.ajax({
                     url: "{{ route('mensagem.atualizarMensagem') }}",
                     type: "put",
@@ -280,9 +278,9 @@
                         return request.setRequestHeader('X-CSRF-Token', $("meta[name='csrf-token']").attr('content'));
                     },
                     success: function (response) {
-                        console.log("resposta:"+response);
                         if(response['novaOpcao']===true){
                             listarOpcoes()
+                            organizarOpcoes(response['mensagemId'])
                         }
                     },
                     complete: function () {
@@ -291,6 +289,41 @@
                 });
             })
         })
+
+        function organizarOpcoes(id) {
+            $.ajax({
+                type: "POST",
+                url: "{{ route('mensagem.listarOpcoesMensagem') }}",
+                data: {'idMensagem':id},
+                beforeSend: function (request){
+                    return request.setRequestHeader('X-CSRF-Token', $("meta[name='csrf-token']").attr('content'));
+                },
+                success: function(data)
+                {
+                    listar.buildDiv(
+                        jQuery.parseJSON(data),
+                        $('.opcao')
+                    );
+                }
+            });
+            let listar = {
+                buildDiv: function(opcoes, div)
+                {
+                    div.html('');
+                    if(opcoes != '')
+                    {
+                        $.each(opcoes, function(k, v) {
+                            div.append(
+                                "<div class='opcao-div' style='float: left'>" +
+                                "    <input class='new-opcao' type='text' name='opcao[]' value='"+v.descricao_opcao+"' placeholder='Digite a opção'/>" +
+                                "    <input hidden name='opcaoId[]' value='"+v.id+"'/>" +
+                                "    <button type='submit' class='remove-opcao' value='"+v.id+"' name='remove'>X</button>\n" +
+                                "</div>")
+                        });
+                    }
+                }
+            }
+        }
 
         function listarOpcoes(){
             $.ajax({
@@ -339,12 +372,6 @@
             $('.formMensagem').attr('id', function(i) {
                 return i;
             });
-            $('.remove-opcao').attr('id', function(i) {
-                return i;
-            });
-            $('.new-opcao').attr('id', function(i) {
-                return i;
-            });
             $('.opcao-div').attr('id', function(i) {
                 return i;
             });
@@ -367,37 +394,6 @@
                 return i;
             });
         }
-    </script>
-
-    <script>
-        /*$.ajax({
-            type: "POST",
-            url: "{{ route('mensagem.listarOpcoes') }}",
-            beforeSend: function (request){
-                return request.setRequestHeader('X-CSRF-Token', $("meta[name='csrf-token']").attr('content'));
-            },
-            success: function(data)
-            {
-                helpers.buildDropdown(
-                    jQuery.parseJSON(data),
-                    $('.dropdown-select'),
-                    'Nenhuma Opção'
-                );
-            }
-        });
-        let helpers = {
-            buildDropdown: function(result, dropdown, emptyMessage)
-            {
-                dropdown.html('');
-                dropdown.append('<option value="">'+emptyMessage+'</option>');
-                if(result != '')
-                {
-                    $.each(result, function(k, v) {
-                        dropdown.append('<option value="'+v.id+'">'+ v.descricao_opcao +'</option>');
-                    });
-                }
-            }
-        }*/
     </script>
 
 </div>
