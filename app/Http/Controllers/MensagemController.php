@@ -13,7 +13,6 @@ class MensagemController extends Controller
 {
 
     public function redirecionarParaTelaDeFluxo($id){
-        //falta implementar view
         Session::put('CHATBOTID', $id);
         $dados['mensagems'] = Mensagem::all();
         $dados['opcoes'] = OpcoesMensagem::all();

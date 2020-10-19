@@ -2,11 +2,13 @@
 
 namespace App\Conversations;
 use App\Mensagem;
+use App\OpcoesMensagem;
 use BotMan\BotMan\Messages\Incoming\Answer;
 use BotMan\BotMan\Messages\Outgoing\Question;
 use BotMan\BotMan\Messages\Outgoing\Actions\Button;
 use BotMan\BotMan\Messages\Conversations\Conversation;
 use App\Models\Pergunta;
+use Illuminate\Support\Facades\Session;
 
 class teste extends Conversation
 {
@@ -16,30 +18,61 @@ class teste extends Conversation
     protected $stillNeedHelp;
 
 
-    public function iniciarConversa()
+    public function responderUsuario($idMensagem)
     {
-        //essa função deve recuperar o id do chatbot da sessão e chamar a função exibirMensagens();
-        $dados = [
-            Button::create('Sim')->value('yes'),
-            Button::create('Não')->value('no'),
-        ];
-        // é possivel adicionar os botões num array antes de jogar no addButtons
-        $question = Question::create('Você precisa de ajuda ?')
-            ->fallback('Unable to create a new database')
-            ->callbackId('create_database')
+        $opcoes = [];
+        $mensagem = null;
+        if($idMensagem == null){
+            $mensagem = Mensagem::where('chatbot_id', Session::get('CHATBOTID'))->where('inicial', true)->first();
+            $opcaoMensagem = OpcoesMensagem::where('mensagem_id_origem', $mensagem->id)->get();
+            foreach ($opcaoMensagem as $opcao){
+                Button::create($opcao->descricao_opcao)->value($opcao->mensagem_id_destino);
+                $opcoes = [
+                    Button::create($opcao->descricao_opcao)->value($opcao->mensagem_id_destino)
+                ];
+            }
+        }else{
+            $mensagem = Mensagem::where('chatbot_id', Session::get('CHATBOTID'))->where('id', $idMensagem)->first();
+            $opcaoMensagem = OpcoesMensagem::where('mensagem_id_origem', $mensagem->id)->get();
+            foreach ($opcaoMensagem as $opcao){
+                Button::create($opcao->descricao_opcao)->value($opcao->mensagem_id_destino);
+                $opcoes = [
+                    Button::create($opcao->descricao_opcao)->value($opcao->mensagem_id_destino)
+                ];
+            }
+        }
+        $question = Question::create($mensagem->mensagem)
             ->addButtons(
-                $dados);
+                $opcoes);
     
         $this->ask($question, function (Answer $answer) {
-            // Detect if button was clicked:
             if ($answer->isInteractiveMessageReply()) {
-                if($answer == 'yes'){
-                    $this->buscarMensagem(null, null);
+                if($answer == null){
+                    return;
+                }else{
+                    $this->responderUsuario($answer);
                 }
-                $selectedValue = $answer->getValue(); // will be either 'yes' or 'no'
-                $selectedText = $answer->getText(); // will be either 'Of course' or 'Hell no!'
             }
         });
+
+        $opcoes = [
+            Button::create("Sim")->value("S"),
+            Button::create("Não")->value("N")
+        ];
+        $question = Question::create("Precisa de ajuda em mais alguma coisa?")
+            ->addButtons(
+                $opcoes);
+
+        $this->ask($question, function (Answer $answer) {
+            if ($answer->isInteractiveMessageReply()) {
+                if($answer == 'N'){
+                    return;
+                }else{
+                    $this->responderUsuario(null);
+                }
+            }
+        });
+
     }
 
     public function buscarMensagem($chatbotID, $mensagemID){
@@ -89,6 +122,6 @@ class teste extends Conversation
      */
     public function run()
     {
-        $this->iniciarConversa();
+        $this->responderUsuario(null);
     }
 }

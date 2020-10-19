@@ -13,4 +13,4 @@ $botman->hears('teste', function ($bot){
     $bot->reply('Hello!');
 });
 
-$botman->hears('oi', BotManController::class.'@teste');
+$botman->hears('oi', BotManController::class.'@responderUsuario');
