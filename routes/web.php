@@ -96,6 +96,7 @@ Route::group(['prefix' => 'mensagem'], function () {
 Route::group(['prefix' => 'chatbot'], function () {
     Route::get('/cadastrar', 'ChatbotController@redirecionarParaTelaDeCadastro')->name('chatbot.cadastrar');
     Route::get('/listar', 'ChatbotController@listar')->name('chatbot.listar');
+    Route::get('/listarChatbot', 'ChatbotController@listarChatbotsDeAcordoComCursoAluno')->name('chatbot.listarChatbot');
     Route::get('/editar/{id}', 'ChatbotController@redirecionarParaTelaDeEdicao')->name('chatbot.editar');
     Route::post('/alterar/{id}', 'ChatbotController@salvarAlteracao')->name('chatbot.alterar');
     Route::get('/excluir/{id}', 'ChatbotController@excluir')->name('chatbot.excluir');
