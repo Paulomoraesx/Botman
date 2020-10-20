@@ -37,13 +37,13 @@
                 <div class="div-opcoes">
                     <label for="dropdown">Selecione a opção que irá chamar está mensagem:</label>
                     <select name="mensagem_id_destino" id="dropdown" class="dropdown-select">
-                        <option value="">Nenhuma Opção</option>
+                        <option class="option-combo" value="">Nenhuma Opção</option>
                         @foreach($opcoes->all() as $opcao)
                             @if($opcao->mensagem_id_destino == $mensagem->id){
-                                <option value="{{$opcao['id']}}" selected="selected">{{$opcao['descricao_opcao']}}</option>
+                                <option class="option-combo" value="{{$opcao['id']}}" selected="selected">{{$opcao['descricao_opcao']}}</option>
                             }
                         @else{
-                            <option value="{{$opcao['id']}}">{{$opcao['descricao_opcao']}}</option>
+                            <option class="option-combo" value="{{$opcao['id']}}">{{$opcao['descricao_opcao']}}</option>
                             }
                         @endif
                         @endforeach
@@ -193,7 +193,6 @@
             if(buttonClicked.data('requestRunning')){
                 return
             }
-
             $.ajax({
                 url: "{{ route('mensagem.deletarOpcao') }}",
                 type: "delete",
@@ -202,12 +201,12 @@
                     return request.setRequestHeader('X-CSRF-Token', $("meta[name='csrf-token']").attr('content'));
                 },
                 success: function (response) {
+                    $('.dropdown-select option[value='+idRemovido+']').remove()
                 },
                 complete: function () {
                     buttonClicked.data('requestRunning', false);
                 }
             })
-            listarOpcoes();
         })
 
     </script>
@@ -241,7 +240,9 @@
                             $('div#' + id + '.div-opcoes').remove();
                         }
                         if (response['novaOpcao'] === true) {
-                            listarOpcoes();
+                            $.each(response['opcoesNovas'], function(k, v) {
+                                $('.dropdown-select').append('<option class="option-combo" value="'+v.id+'">'+ v.descricao_opcao +'</option>');
+                            });
                             organizarOpcoes(response['mensagemId'])
                         }
                         $(buttonClicked.find('input.button.cadastrar')).remove();
@@ -279,7 +280,9 @@
                     },
                     success: function (response) {
                         if(response['novaOpcao']===true){
-                            listarOpcoes()
+                            $.each(response['opcoesNovas'], function(k, v) {
+                                $('.dropdown-select').append('<option class="option-combo" value="'+v.id+'">'+ v.descricao_opcao +'</option>');
+                            });
                             organizarOpcoes(response['mensagemId'], buttonClicked.find('.opcao'))
                         }
                     },
@@ -345,11 +348,11 @@
                 buildDropdown: function(result, dropdown, emptyMessage)
                 {
                     dropdown.html('');
-                    dropdown.append('<option value="">'+emptyMessage+'</option>');
+                    dropdown.append('<option class="option-combo" value="">'+emptyMessage+'</option>');
                     if(result != '')
                     {
                         $.each(result, function(k, v) {
-                            dropdown.append('<option value="'+v.id+'">'+ v.descricao_opcao +'</option>');
+                            dropdown.append('<option class="option-combo" value="'+v.id+'">'+ v.descricao_opcao +'</option>');
                         });
                     }
                 }

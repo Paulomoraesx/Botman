@@ -24,6 +24,7 @@ Route::get('/welcome', 'LoginController@welcome')->name('home');*/
 /*Route::get('/', 'LoginController@login')->name('login');*/
 
 Route::get('/criandochatbot', 'LoginController@criandochatbot')->name('criandoChatBot');
+
 Route::group(['middleware' => ['auth']], function() {
     Route::group(['prefix' => 'mensagem'], function () {
         Route::get('/gerenciarFluxo/{id}', 'MensagemController@redirecionarParaTelaDeFluxo')->name('mensagem.cadastrar');
