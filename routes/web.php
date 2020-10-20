@@ -101,6 +101,7 @@ Route::group(['prefix' => 'chatbot'], function () {
     Route::post('/alterar/{id}', 'ChatbotController@salvarAlteracao')->name('chatbot.alterar');
     Route::get('/excluir/{id}', 'ChatbotController@excluir')->name('chatbot.excluir');
     Route::post('/cadastrarChatbot', 'ChatbotController@salvarNovoChatBot')->name('chatbot.salvar');
+    Route::get('/tinker/{id}', 'BotManController@redirecionarParaView')->name('chatbot.acessarChatBot');
 });
 
 Route::post('/dadosAluno', 'AlunosController@dadosAluno')->name('dadosAluno');

@@ -21,6 +21,7 @@
 						<td>
 							<a href="{{route('chatbot.editar', ['id' => $chatbot['id']])}}" class="fa fa-pencil" style="text-decoration:none"></a>
 							<a href="{{route('chatbot.excluir',['id' => $chatbot['id']])}}" class="fa fa-trash" style="text-decoration:none"></a>
+                            <a href="{{route('chatbot.acessarChatBot',['id' => $chatbot['id']])}}" style="text-decoration:none">Acessar ChatBot</a>
                             <a href="{{route('mensagem.cadastrar', ['id' => $chatbot['id']])}}" class="fa fa-trash" style="text-decoration:none">Gerenciar Fluxo de mensagens</a>
 						</td>
 					</tr>	

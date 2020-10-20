@@ -33,6 +33,13 @@ class ChatbotController extends Controller
         return view('Chatbot/listarChatbotsCurso', $dados);
 
     }
+    public function redirecionarParaView($id)
+    {
+        dd($id);
+        Session::put('botUtilizado', $id);
+        return view('Chatbot/tinker');
+    }
+
     public function salvarAlteracao(Request $request, $id){
         $request->validate([
             'titulo' => 'required',

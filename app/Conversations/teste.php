@@ -21,30 +21,26 @@ class teste extends Conversation
     public function responderUsuario($idMensagem)
     {
         $opcoes = [];
-        $mensagem = null;
+        $mensagem = new Mensagem();
         if($idMensagem == null){
-            $mensagem = Mensagem::where('chatbot_id', Session::get('CHATBOTID'))->where('inicial', true)->first();
+            $mensagem = Mensagem::where('chatbot_id', Session::get('botUtilizado'))->where('inicial', true)->first();
             $opcaoMensagem = OpcoesMensagem::where('mensagem_id_origem', $mensagem->id)->get();
             foreach ($opcaoMensagem as $opcao){
-                Button::create($opcao->descricao_opcao)->value($opcao->mensagem_id_destino);
-                $opcoes = [
-                    Button::create($opcao->descricao_opcao)->value($opcao->mensagem_id_destino)
-                ];
+                $add = Button::create($opcao->descricao_opcao)->value($opcao->mensagem_id_destino);
+                $opcoes[] = $add;
             }
         }else{
             $mensagem = Mensagem::where('chatbot_id', Session::get('CHATBOTID'))->where('id', $idMensagem)->first();
             $opcaoMensagem = OpcoesMensagem::where('mensagem_id_origem', $mensagem->id)->get();
             foreach ($opcaoMensagem as $opcao){
-                Button::create($opcao->descricao_opcao)->value($opcao->mensagem_id_destino);
-                $opcoes = [
-                    Button::create($opcao->descricao_opcao)->value($opcao->mensagem_id_destino)
-                ];
+                $add = Button::create($opcao->descricao_opcao)->value($opcao->mensagem_id_destino);
+                $opcoes[] = $add;
             }
         }
         $question = Question::create($mensagem->mensagem)
             ->addButtons(
                 $opcoes);
-    
+
         $this->ask($question, function (Answer $answer) {
             if ($answer->isInteractiveMessageReply()) {
                 if($answer == null){
@@ -54,24 +50,25 @@ class teste extends Conversation
                 }
             }
         });
+        if($opcoes == null){
+            $opcoes = [
+                Button::create("Sim")->value("S"),
+                Button::create("Não")->value("N")
+            ];
+            $question = Question::create("Precisa de ajuda em mais alguma coisa?")
+                ->addButtons(
+                    $opcoes);
 
-        $opcoes = [
-            Button::create("Sim")->value("S"),
-            Button::create("Não")->value("N")
-        ];
-        $question = Question::create("Precisa de ajuda em mais alguma coisa?")
-            ->addButtons(
-                $opcoes);
-
-        $this->ask($question, function (Answer $answer) {
-            if ($answer->isInteractiveMessageReply()) {
-                if($answer == 'N'){
-                    return;
-                }else{
-                    $this->responderUsuario(null);
+            $this->ask($question, function (Answer $answer) {
+                if ($answer->isInteractiveMessageReply()) {
+                    if($answer == 'N'){
+                        return;
+                    }else{
+                        $this->responderUsuario(null);
+                    }
                 }
-            }
-        });
+            });
+        }
 
     }
 

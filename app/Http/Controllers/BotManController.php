@@ -6,6 +6,7 @@ use BotMan\BotMan\BotMan;
 use Illuminate\Http\Request;
 use App\Conversations\ExampleConversation;
 use App\Conversations\teste;
+use Illuminate\Support\Facades\Session;
 
 class BotManController extends Controller
 {
@@ -24,7 +25,14 @@ class BotManController extends Controller
      */
     public function tinker()
     {
+        Session::put('botUtilizado');
         return view('tinker');
+    }
+
+    public function redirecionarParaView($id)
+    {
+        Session::put('botUtilizado', $id);
+        return view('Chatbot/tinker');
     }
 
     /**

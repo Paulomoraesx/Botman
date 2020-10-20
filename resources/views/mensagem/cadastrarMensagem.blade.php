@@ -280,7 +280,7 @@
                     success: function (response) {
                         if(response['novaOpcao']===true){
                             listarOpcoes()
-                            organizarOpcoes(response['mensagemId'])
+                            organizarOpcoes(response['mensagemId'], buttonClicked.find('.opcao'))
                         }
                     },
                     complete: function () {
@@ -290,7 +290,7 @@
             })
         })
 
-        function organizarOpcoes(id) {
+        function organizarOpcoes(id, div) {
             $.ajax({
                 type: "POST",
                 url: "{{ route('mensagem.listarOpcoesMensagem') }}",
@@ -302,7 +302,7 @@
                 {
                     listar.buildDiv(
                         jQuery.parseJSON(data),
-                        $('.opcao')
+                        $(div)
                     );
                 }
             });
