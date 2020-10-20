@@ -35,9 +35,14 @@ class MensagemController extends Controller
 
         $mensagem->save();
         if($request->get('opcoesNovas') > 0){
-                $this->cadastrarOpcoesNovas(($request->get('opcoesNovas')), $mensagem->id);
+            $response['opcoesNovas'] = $this->cadastrarOpcoesNovas(($request->get('opcoesNovas')), $mensagem->id);
             $response['novaOpcao'] = true;
         }
+
+        if($request->get('mensagem_id_destino') != null){
+            $this->adicionarOpcaoDestino($request->get('mensagem_id_destino'), $mensagem->id);
+        }
+
         $response['inicial'] = $mensagem->inicial;
         $response['mensagemId'] = $mensagem->id;
         echo json_encode($response);
@@ -61,7 +66,7 @@ class MensagemController extends Controller
             }
         }
         if($request->get('opcoesNovas') > 0){
-            $this->cadastrarOpcoesNovas($request->get('opcoesNovas'), $mensagem->id);
+            $response['opcoesNovas'] = $this->cadastrarOpcoesNovas($request->get('opcoesNovas'), $mensagem->id);
             $response['novaOpcao'] = true;
         }
 
@@ -80,13 +85,16 @@ class MensagemController extends Controller
     }
 
     private function cadastrarOpcoesNovas($opcoes, $idMensagem){
+        $opcoesNovas= [];
         foreach ($opcoes as $opcao) {
             $newOpcao = new OpcoesMensagem();
             $newOpcao->descricao_opcao = $opcao;
             $newOpcao->mensagem_id_destino = null;
             $newOpcao->mensagem_id_origem = $idMensagem;
             $newOpcao->save();
+            $opcoesNovas[] = $newOpcao;
         }
+        return $opcoesNovas;
     }
 
     private function atualizarOpcoes($opcao, $id){
