@@ -30,7 +30,7 @@ class teste extends Conversation
                 $opcoes[] = $add;
             }
         }else{
-            $mensagem = Mensagem::where('chatbot_id', Session::get('CHATBOTID'))->where('id', $idMensagem)->first();
+            $mensagem = Mensagem::where('chatbot_id', Session::get('botUtilizado'))->where('id', $idMensagem)->first();
             $opcaoMensagem = OpcoesMensagem::where('mensagem_id_origem', $mensagem->id)->get();
             foreach ($opcaoMensagem as $opcao){
                 $add = Button::create($opcao->descricao_opcao)->value($opcao->mensagem_id_destino);

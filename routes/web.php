@@ -24,7 +24,28 @@ Route::get('/welcome', 'LoginController@welcome')->name('home');*/
 /*Route::get('/', 'LoginController@login')->name('login');*/
 
 Route::get('/criandochatbot', 'LoginController@criandochatbot')->name('criandoChatBot');
+Route::group(['middleware' => ['auth']], function() {
+    Route::group(['prefix' => 'mensagem'], function () {
+        Route::get('/gerenciarFluxo/{id}', 'MensagemController@redirecionarParaTelaDeFluxo')->name('mensagem.cadastrar');
+        Route::post('/', 'MensagemController@cadastrarMensagem')->name('mensagem.cadastrarMensagem');
+        Route::delete('/delete', 'MensagemController@deletarOpcao')->name('mensagem.deletarOpcao');
+        Route::post('/opcao', 'MensagemController@listarOpcoesParaNovaPergunta')->name('mensagem.listarOpcoes');
+        Route::post('/opcaoMensagem', 'MensagemController@listarOpcoesMensagem')->name('mensagem.listarOpcoesMensagem');
+        Route::put('/update', 'MensagemController@atualizarMensagem')->name('mensagem.atualizarMensagem');
+    });
 
+
+    Route::group(['prefix' => 'chatbot'], function () {
+        Route::get('/cadastrar', 'ChatbotController@redirecionarParaTelaDeCadastro')->name('chatbot.cadastrar');
+        Route::get('/listar', 'ChatbotController@listar')->name('chatbot.listar');
+        Route::get('/listarChatbot', 'ChatbotController@listarChatbotsDeAcordoComCursoAluno')->name('chatbot.listarChatbot');
+        Route::get('/editar/{id}', 'ChatbotController@redirecionarParaTelaDeEdicao')->name('chatbot.editar');
+        Route::post('/alterar/{id}', 'ChatbotController@salvarAlteracao')->name('chatbot.alterar');
+        Route::get('/excluir/{id}', 'ChatbotController@excluir')->name('chatbot.excluir');
+        Route::post('/cadastrarChatbot', 'ChatbotController@salvarNovoChatBot')->name('chatbot.salvar');
+        Route::get('/tinker/{id}', 'BotManController@redirecionarParaView')->name('chatbot.acessarChatBot');
+    });
+});
 Route::group(['prefix' => 'usuarios'], function () {
     Route::get('/cadastrar', 'UsuariosController@redirecionarParaTelaDeCadastroUsuario')->name('usuarios.cadastrar');
     Route::get('/listar', 'UsuariosController@listarUsuarios')->name('usuarios.listar');
@@ -83,26 +104,7 @@ Route::group(['prefix' => 'pergunta'], function () {
     Route::post('/cadastrarPergunta', 'PerguntaController@cadastrarPergunta')->name('pergunta.executarCadastro');
 });
 
-Route::group(['prefix' => 'mensagem'], function () {
-    Route::get('/gerenciarFluxo/{id}', 'MensagemController@redirecionarParaTelaDeFluxo')->name('mensagem.cadastrar');
-    Route::post('/', 'MensagemController@cadastrarMensagem')->name('mensagem.cadastrarMensagem');
-    Route::delete('/delete', 'MensagemController@deletarOpcao')->name('mensagem.deletarOpcao');
-    Route::post('/opcao', 'MensagemController@listarOpcoesParaNovaPergunta')->name('mensagem.listarOpcoes');
-    Route::post('/opcaoMensagem', 'MensagemController@listarOpcoesMensagem')->name('mensagem.listarOpcoesMensagem');
-    Route::put('/update', 'MensagemController@atualizarMensagem')->name('mensagem.atualizarMensagem');
-});
 
-
-Route::group(['prefix' => 'chatbot'], function () {
-    Route::get('/cadastrar', 'ChatbotController@redirecionarParaTelaDeCadastro')->name('chatbot.cadastrar');
-    Route::get('/listar', 'ChatbotController@listar')->name('chatbot.listar');
-    Route::get('/listarChatbot', 'ChatbotController@listarChatbotsDeAcordoComCursoAluno')->name('chatbot.listarChatbot');
-    Route::get('/editar/{id}', 'ChatbotController@redirecionarParaTelaDeEdicao')->name('chatbot.editar');
-    Route::post('/alterar/{id}', 'ChatbotController@salvarAlteracao')->name('chatbot.alterar');
-    Route::get('/excluir/{id}', 'ChatbotController@excluir')->name('chatbot.excluir');
-    Route::post('/cadastrarChatbot', 'ChatbotController@salvarNovoChatBot')->name('chatbot.salvar');
-    Route::get('/tinker/{id}', 'BotManController@redirecionarParaView')->name('chatbot.acessarChatBot');
-});
 
 Route::post('/dadosAluno', 'AlunosController@dadosAluno')->name('dadosAluno');
 Route::post('/dadosUsuario', 'UsuariosController@dadosUsuario')->name('dadosUsuario');
