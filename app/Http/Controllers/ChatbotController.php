@@ -28,7 +28,7 @@ class ChatbotController extends Controller
         $dados['chatbots'] = Chatbot::join('materias',  'chatbots.materia_id', '=', 'materias.id')
             ->join('cursos', 'materias.curso_id', '=', 'cursos.id')
             ->where('cursos.id',  $teste->curso_id)
-            ->select('chatbots.titulo')
+            ->select('chatbots.id','chatbots.titulo','chatbots.autor_id','chatbots.materia_id')
             ->get();
         return view('Chatbot/listarChatbotsCurso', $dados);
 

@@ -43,6 +43,7 @@
                     </li>
                     @else
                     <li class="current"><a href="{{route('home')}}">Inicio</a></li>
+                    @if(Auth::user()->tipo_cadastro == 'P')
                     <li>
                         <a class="btns-nav">Cadastros</a>
                         <ul>
@@ -67,6 +68,7 @@
                             </div>
                         </ul>
                     </li>
+                    @endif
                     <li>
                         <a class="btns-nav" href="/botman/tinker">BOTMAN</a>
                         <ul>
