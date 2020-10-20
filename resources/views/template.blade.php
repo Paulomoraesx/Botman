@@ -74,6 +74,7 @@
                         <ul>
                             <div class="fundoEscolhasNav">
                                 <li><a href="/botman/tinker">Iniciar</a></li>
+                                <li><a href="{{route('chatbot.listarChatbot')}}" >Seus Chatbots</a></li>
                             </div>
                         </ul>
                     </li>
