@@ -20,8 +20,10 @@ class teste extends Conversation
 
     public function responderUsuario($idMensagem)
     {
+        //inicializando variaveis
         $opcoes = [];
         $mensagem = new Mensagem();
+        //verificando se existe id como parametro para buscar am ensagem
         if($idMensagem == null){
             $mensagem = Mensagem::where('chatbot_id', Session::get('botUtilizado'))->where('inicial', true)->first();
             $opcaoMensagem = OpcoesMensagem::where('mensagem_id_origem', $mensagem->id)->get();
@@ -37,10 +39,11 @@ class teste extends Conversation
                 $opcoes[] = $add;
             }
         }
+        //adicionando mensagem e opcoes
         $question = Question::create($mensagem->mensagem)
             ->addButtons(
                 $opcoes);
-
+        //função que envia mensagem e recebe a resposta do usuario
         $this->ask($question, function (Answer $answer) {
             if ($answer->isInteractiveMessageReply()) {
                 if($answer == null){
@@ -50,6 +53,7 @@ class teste extends Conversation
                 }
             }
         });
+        //verificando se existe opção na mensagem
         if($opcoes == null){
             $opcoes = [
                 Button::create("Sim")->value("S"),
