@@ -20,6 +20,9 @@
 
     <div class="boxCadastro">
         <div class="itemBoxCadastro">
+            <Strong>A primeira mensagem exibida, além de ser a mensagem inicial, também será a mensagem usada ao reinicializar o fluxo. </Strong>
+        </div>
+        <div class="itemBoxCadastro">
             <button type="button" id="adicionar-mensagem" class="add-mensagem" style="float: left">Adicionar Nova Mensagem</button>
         </div>
     </div>
