@@ -86,12 +86,14 @@
                         <div class="form-group row">
                             <label for="curso" class="col-md-4 col-form-label text-md-right">Curso*:</label>
                             <div class="col-md-6">
-                            <select name="curso_id" id="curso" class="form-control{{ $errors->has('curso_id') ? ' is-invalid' : '' }}">
-                                @foreach($cursos as $curso)
-                                <option value="{{$curso->id}}">{{$curso->descricao_curso}}</option>
-                                @endforeach
-                            </select>
+                                <select name="curso_id" id="curso"
+                                        class="form-control{{ $errors->has('curso_id') ? ' is-invalid' : '' }}">
+                                    @foreach($cursos as $curso)
+                                    <option value="{{$curso->id}}">{{$curso->descricao_curso}}</option>
+                                    @endforeach
+                                </select>
                             </div>
+                            <a href="#" class="card-link" data-toggle="modal" data-target="#modalCadastroCurso">Novo Curso</a>
                         </div>
 
                         <div class="form-group row mb-0">
@@ -102,6 +104,45 @@
                             </div>
                         </div>
                     </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- MODAL -->
+    <div class="modal fade" id="modalCadastroCurso" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Novo Curso</h5>
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span>
+                            x
+                        </span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="{{route('cursos.executarCadastro')}}" method="post" enctype="multipart/form-data">
+                        @csrf
+                        <div class="boxCadastro">
+                            <div class="form-group row">
+                                <label for="descricao_curso"
+                                       class="col-md-4 col-form-label text-md-right">Descrição*:</label>
+                                <div class="col-md-6">
+                                    <input class="form-control" type="text" id="curso" name="descricao_curso"
+                                           placeholder="Descrição do curso.."/>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div>
+                            <input type="submit" class="btn" style="background: green; color: white; border: black
+ solid 1px; border-radius: 3px;" value="Cadastrar"/>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>
+
                 </div>
             </div>
         </div>
