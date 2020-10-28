@@ -23,7 +23,7 @@
             <Strong>A primeira mensagem exibida, além de ser a mensagem inicial, também será a mensagem usada ao reinicializar o fluxo. </Strong>
         </div>
         <div class="itemBoxCadastro">
-            <button type="button" id="adicionar-mensagem" class="add-mensagem" style="float: left">Adicionar Nova Mensagem</button>
+            <button type="button" id="adicionar-mensagem" class="add-mensagem btn botao-login-estilo" style="float: left">Adicionar Nova Mensagem</button>
         </div>
     </div>
     <div id="mensagens">
@@ -55,21 +55,21 @@
                 @endif
                                 <div class='itemBoxCadastro'>
                                     <label style='float: left'>Descrição da mensagem*:</label>
-                                    <textarea class='componenteInputCadastro' type='text' id='mensagem' name='mensagem'
+                                    <textarea class='form-control' type='text' id='mensagem' name='mensagem'
                                               placeholder='Escreva aqui a mensagem..'
                                               style='width: 100%; float: left; resize: none'>{{$mensagem['mensagem']}}</textarea>
                                 </div>
                                 <div class='itemBoxCadastro'>
-                                    <button type='button' class='add-opcao' style='float: left'>Adicionar Opção</button>
+                                    <button type='button' class='add-opcao btn botao-login-estilo' style='float: left'>Adicionar Opção</button>
                                 </div>
                             <row>
                                     <div class='opcao' style='display: inline'>
                                         @foreach ($opcoes->all() as $opcao)
                                             @if($opcao['mensagem_id_origem'] == $mensagem->id)
                                             <div class='opcao-div' style='float: left'>
-                                                <input class='new-opcao' multiple type='text' name='opcao[]' value="{{$opcao['descricao_opcao']}}" placeholder='Digite a opção'/>
+                                                <input class='new-opcao form-control' style="width: auto !important; display: inline; margin-left: 3px;" type='text' name='opcao[]' value="{{$opcao['descricao_opcao']}}" placeholder='Digite a opção'/>
                                                 <input hidden name="opcaoId[]" value="{{$opcao['id']}}"/>
-                                                <button type='submit' class='remove-opcao' value="{{$opcao['id']}}" name='remove'>X</button>
+                                                <button type='submit' class='remove-opcao btn botao-login-estilo' style="background: #FF0000 !important; padding: .175rem .75rem !important;" value="{{$opcao['id']}}" name='remove'>X</button>
                                             </div>
                                             @endif
                                         @endforeach
@@ -77,7 +77,7 @@
                             </row>
                         </div>
                     <div class="div-button">
-                        <input type='submit' class='button atualizar' value='Atualizar'/>
+                        <input type='submit' class='btn botao-login-estilo atualizar' style="width: 200px;height: 50px;" value='Atualizar'/>
                     </div>
             </form>
         @endforeach
@@ -99,12 +99,12 @@
                 "                    </select>" +
                 "                </div>" +
                 "                <label style='float: left'>Descrição da mensagem*:</label>" +
-                "                <textarea class='componenteInputCadastro' type='text' id='mensagem' name='mensagem'" +
+                "                <textarea class='form-control' type='text' id='mensagem' name='mensagem'" +
                 "                          placeholder='Escreva aqui a mensagem..'" +
                 "                          style='width: 100%; float: left; resize: none'></textarea>" +
                 "            </div>" +
                 "            <div class='itemBoxCadastro'>" +
-                "                <button type='button' class='add-opcao' style='float: left'>Adicionar Opção</button>" +
+                "                <button type='button' class='add-opcao btn botao-login-estilo' style='float: left'>Adicionar Opção</button>" +
                 "            </div>" +
                 "            <row>" +
                 "                <div class='opcao' style='display: inline'>" +
@@ -112,7 +112,7 @@
                 "            </row>" +
                 "        </div>" +
                 "        <div class='div-button'>" +
-                "           <input type='submit' class='button cadastrar' value='Cadastrar'/>" +
+                "           <input type='submit' class='btn botao-login-estilo cadastrar' style='width: 200px;height: 50px;' value='Cadastrar'/>" +
                 "        </div>" +
                 "</form>"
             );
@@ -176,8 +176,8 @@
         $('body').delegate('.add-opcao', 'click', function() {
             let id = $(this).attr('id');
             $('div#'+id+'.opcao').append("<div class='opcao-div' style='float: left'> " +
-                "<input class='new-opcao' type='text' name='opcoesNovas[]' placeholder='Digite a opção'/>" +
-                "<button type='submit' class='remove-opcao' name='remove'>X</button>" +
+                "<input class='new-opcao form-control' style='width: auto !important; display: inline; margin-left: 3px;' type='text' name='opcoesNovas[]' placeholder='Digite a opção'/>" +
+                "<button type='submit' class='remove-opcao btn botao-login-estilo' style='margin-left: 4px;background: #FF0000 !important; padding: .175rem .75rem !important;' name='remove'>X</button>" +
                 "</div>");
             $('.remove-opcao').attr('id', function(i) {
                 return i;
@@ -215,7 +215,7 @@
     </script>
 
     <script>
-        $(document).on('click','input.button.cadastrar', function () {
+        $(document).on('click','input.btn.botao-login-estilo.cadastrar', function () {
             $('form[class="formMensagem"]').submit(function (event) {
                 event.preventDefault()
                 let id= $(this).attr('id');
@@ -248,8 +248,8 @@
                             });
                             organizarOpcoes(response['mensagemId'])
                         }
-                        $(buttonClicked.find('input.button.cadastrar')).remove();
-                        $(buttonClicked.find('.div-button')).append('<input type="submit" class="atualizar button" value="Atualizar" />');
+                        $(buttonClicked.find('input.btn.botao-login-estilo.cadastrar')).remove();
+                        $(buttonClicked.find('.div-button')).append('<input type="submit" class="atualizar btn botao-login-estilo" style="width: 200px; height: 50px;" value="Atualizar" />');
                         $(buttonClicked).attr({
                             "class": 'formMensagemAtualizar',
                             "method": 'put',
@@ -263,7 +263,7 @@
             })
         })
 
-        $(document).on('click', 'input.button.atualizar' ,function () {
+        $(document).on('click', 'input.btn.botao-login-estilo.atualizar' ,function () {
             $('form[class="formMensagemAtualizar"]').submit(function (event) {
                 event.preventDefault()
                 let buttonClicked = $(this);
@@ -321,9 +321,9 @@
                         $.each(opcoes, function(k, v) {
                             div.append(
                                 "<div class='opcao-div' style='float: left'>" +
-                                "    <input class='new-opcao' type='text' name='opcao[]' value='"+v.descricao_opcao+"' placeholder='Digite a opção'/>" +
+                                "    <input class='new-opcao form-control' style='width: auto !important; display: inline; margin-left: 3px;' type='text' name='opcao[]' value='"+v.descricao_opcao+"' placeholder='Digite a opção'/>" +
                                 "    <input hidden name='opcaoId[]' value='"+v.id+"'/>" +
-                                "    <button type='submit' class='remove-opcao' value='"+v.id+"' name='remove'>X</button>\n" +
+                                "    <button type='submit' class='remove-opcao btn botao-login-estilo' style='background: #FF0000 !important; padding: .175rem .75rem !important;' value='"+v.id+"' name='remove'>X</button>\n" +
                                 "</div>")
                         });
                     }
