@@ -9,11 +9,14 @@
     <!-- BOOTSTRAP -->
     <link rel="stylesheet" href="{{asset('assets/css/bootstrap.min.css')}}">
     <link rel="stylesheet" href="{{asset('assets/css/font-awesome.min.css')}}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 
     <link href="http://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet"/>
     <link href="{{asset('assets/css/default.css')}}" rel="stylesheet" type="text/css" media="all"/>
     <link href="{{asset('assets/css/fonts.css')}}" rel="stylesheet" type="text/css" media="all"/>
     <link href="{{asset('assets/css/estilo.css')}}" rel="stylesheet" type="text/css" media="all"/>
+
+    <link href="public/funcionarioIcone.png" />
 
     <script src="{{asset('assets/js/bootstrap.min.js')}}"></script>
 
@@ -51,7 +54,7 @@
                                 <li><a href="{{route('usuarios.cadastrar')}}">Usuario</a></li>
                                 <li><a href="{{route('cursos.cadastrar')}}">Cursos</a></li>
                                 <li><a href="{{route('materia.cadastrar')}}">Matéria</a></li>
-                                <li><a href="{{route('pergunta.cadastrar')}}">Pergunta</a></li>
+                                <li><a href="{{route('duvida.cadastrar')}}">Duvida</a></li>
                                 <li><a href="{{route('chatbot.cadastrar')}}">Chatbot</a></li>
                             </div>
                         </ul>
@@ -62,8 +65,8 @@
                             <div class="fundoEscolhasNav">
                                 <li><a href="{{route('usuarios.listar')}}">Usuario</a></li>
                                 <li><a href="{{route('cursos.listar')}}">Cursos</a></li>
-                                <li><a href="{{route('materia.listar')}}">Matéria</a></li>
-                                <li><a href="{{route('pergunta.listar')}}">Pergunta</a></li>
+                                <li><a href="{{route('materia.listar')}}">Matéria</a></li><!--
+                                <li><a href="{{route('duvida.listar')}}">Duvida</a></li>-->
                                 <li><a href="{{route('chatbot.listar')}}">Chatbot</a></li>
                             </div>
                         </ul>
@@ -86,7 +89,7 @@
                                     <a href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
+                                        {{ __('Sair') }}
                                     </a>
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST">
                                         @csrf
@@ -114,6 +117,9 @@
 <script src="{{asset('assets/js/browser.min.js')}}" type="text/javascript"></script>
 <script src="{{asset('assets/js/breakpoints.min.js')}}" type="text/javascript"></script>
 <script src="{{asset('assets/js/main.js')}}" type="text/javascript"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 <script src="/js/app.js"></script>
 </body>
 

@@ -62,7 +62,7 @@
                                         <li><a href="{{route('alunos.cadastrar')}}">Aluno</a></li>
                                         <li><a href="{{route('cursos.cadastrar')}}">Cursos</a></li>
                                         <li><a href="{{route('materia.cadastrar')}}">Matéria</a></li>
-                                        <li><a href="{{route('pergunta.cadastrar')}}">Pergunta</a></li>
+                                        <li><a href="{{route('duvida.cadastrar')}}">Pergunta</a></li>
                                         <li><a href="{{route('chatbot.cadastrar')}}">Chatbot</a></li>
                                     </div>
                                 </ul>
@@ -83,7 +83,7 @@
                                         <li><a href="{{route('alunos.listar')}}">Aluno</a></li>
                                         <li><a href="{{route('cursos.listar')}}">Cursos</a></li>
                                         <li><a href="{{route('materia.listar')}}">Matéria</a></li>
-                                        <li><a href="{{route('pergunta.listar')}}">Pergunta</a></li>
+                                        <li><a href="{{route('duvida.listar')}}">Pergunta</a></li>
                                         <li><a href="{{route('chatbot.listar')}}">Chatbot</a></li>
                                     </div>
                                 </ul>

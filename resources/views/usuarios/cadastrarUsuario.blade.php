@@ -115,7 +115,6 @@
                             </select>
                         </div>
                         <a href="#" class="card-link" data-toggle="modal" data-target="#modalCadastroCurso">Novo Curso</a>
-                        <button type="button" class="btn" title="teste" data-toggle="modal" data-target="#modalCadastroCurso">>Novo Curso</button>
                     </div>
                     <div><input type="submit" class="button" value="Cadastrar"/></div>
             </form>

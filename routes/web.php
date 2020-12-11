@@ -95,14 +95,14 @@ Route::group(['prefix' => 'materia'], function () {
     Route::post('/cadastrarMateria', 'MateriaController@cadastrarMateria')->name('materia.executarCadastro');
 });
 
-Route::group(['prefix' => 'pergunta'], function () {
-    Route::get('/cadastrar', 'PerguntaController@redirecionarTelaCadastro')->name('pergunta.cadastrar');
-    Route::get('/listar', 'PerguntaController@listarPergunta')->name('pergunta.listar');
-    Route::get('/editar/{id}', 'PerguntaController@editarPergunta')->name('pergunta.editar');
-    Route::post('/alterar/{id}', 'PerguntaController@alterarPergunta')->name('pergunta.alterar');
-    Route::get('/vizualizar/{id}', 'PerguntaController@visualizarPergunta')->name('pergunta.visualizar');
-    Route::get('/excluir/{id}', 'PerguntaController@excluirPergunta')->name('pergunta.excluir');
-    Route::post('/cadastrarPergunta', 'PerguntaController@cadastrarPergunta')->name('pergunta.executarCadastro');
+Route::group(['prefix' => 'duvida'], function () {
+    Route::get('/cadastrar', 'DuvidaController@redirecionarTelaCadastro')->name('duvida.cadastrar');
+    Route::get('/listar', 'DuvidaController@listarDuvida')->name('duvida.listar');
+    Route::get('/editar/{id}', 'DuvidaController@editarDuvida')->name('duvida.editar');
+    Route::post('/alterar/{id}', 'DuvidaController@alterarDuvida')->name('duvida.alterar');
+    Route::get('/vizualizar/{id}', 'DuvidaController@visualizarDuvida')->name('duvida.visualizar');
+    Route::get('/excluir/{id}', 'DuvidaController@excluirDuvida')->name('duvida.excluir');
+    Route::post('/cadastrarDuvida', 'DuvidaController@cadastrarDuvida')->name('duvida.executarCadastro');
 });
 
 
