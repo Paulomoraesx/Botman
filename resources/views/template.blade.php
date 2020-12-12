@@ -72,15 +72,17 @@
                         </ul>
                     </li>
                     @endif
+                    @if(Auth::user()->tipo_cadastro == 'A')
                     <li>
-                        <a class="btns-nav" href="/botman/tinker">BOTMAN</a>
+                        <a class="btns-nav">Opções</a>
                         <ul>
                             <div class="fundoEscolhasNav">
-                                <li><a href="/botman/tinker">Iniciar</a></li>
-                                <li><a href="{{route('chatbot.listarChatbot')}}" >Seus Chatbots</a></li>
+                                <li><a href="{{route('chatbot.listarChatbot')}}" >ChatBots Dísponiveis</a></li>
+                                <li><a href="{{route('duvida.listar')}}" >Suas Dúvidas</a></li>
                             </div>
                         </ul>
                     </li>
+                    @endif
                     <li>
                         <a class="btns-nav">{{ Auth::user()->nome }}</a>
                         <ul>

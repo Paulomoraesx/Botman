@@ -14,7 +14,7 @@ class MensagemController extends Controller
 
     public function redirecionarParaTelaDeFluxo($id){
         Session::put('CHATBOTID', $id);
-        $dados['mensagems'] = Mensagem::all();
+        $dados['mensagems'] =  Mensagem::where('chatbot_id', $id)->get();
         $dados['opcoes'] = OpcoesMensagem::all();
         return view('mensagem/cadastrarMensagem', $dados);
     }

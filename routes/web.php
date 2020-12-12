@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    return view('home');
+    return view('home')->name('home');
 });
 
 Route::match(['get', 'post'], '/botman', 'BotManController@handle');
@@ -38,8 +38,8 @@ Route::group(['middleware' => ['auth']], function() {
 
     Route::group(['prefix' => 'chatbot'], function () {
         Route::get('/cadastrar', 'ChatbotController@redirecionarParaTelaDeCadastro')->name('chatbot.cadastrar');
-        Route::get('/listar', 'ChatbotController@listar')->name('chatbot.listar');
-        Route::get('/listarChatbot', 'ChatbotController@listarChatbotsDeAcordoComCursoAluno')->name('chatbot.listarChatbot');
+        Route::get('/listar', 'ChatbotController@listarChatbotsProfessor')->name('chatbot.listar');
+        Route::get('/listarChatbotCurso', 'ChatbotController@listarChatbotsDeAcordoComCursoAluno')->name('chatbot.listarChatbot');
         Route::get('/editar/{id}', 'ChatbotController@redirecionarParaTelaDeEdicao')->name('chatbot.editar');
         Route::post('/alterar/{id}', 'ChatbotController@salvarAlteracao')->name('chatbot.alterar');
         Route::get('/excluir/{id}', 'ChatbotController@excluir')->name('chatbot.excluir');
@@ -98,10 +98,8 @@ Route::group(['prefix' => 'materia'], function () {
 Route::group(['prefix' => 'duvida'], function () {
     Route::get('/cadastrar', 'DuvidaController@redirecionarTelaCadastro')->name('duvida.cadastrar');
     Route::get('/listar', 'DuvidaController@listarDuvida')->name('duvida.listar');
-    Route::get('/editar/{id}', 'DuvidaController@editarDuvida')->name('duvida.editar');
-    Route::post('/alterar/{id}', 'DuvidaController@alterarDuvida')->name('duvida.alterar');
-    Route::get('/vizualizar/{id}', 'DuvidaController@visualizarDuvida')->name('duvida.visualizar');
-    Route::get('/excluir/{id}', 'DuvidaController@excluirDuvida')->name('duvida.excluir');
+    Route::get('/listarDuvida/{id}', 'DuvidaController@listarDuvidasPorChatbot')->name('duvida.listarDuvidaChatbot');
+    Route::get('/atender/{id}', 'DuvidaController@atenderDuvida')->name('duvida.atender');
     Route::post('/cadastrarDuvida', 'DuvidaController@cadastrarDuvida')->name('duvida.executarCadastro');
 });
 

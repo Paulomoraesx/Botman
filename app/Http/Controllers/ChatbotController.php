@@ -18,8 +18,9 @@ class ChatbotController extends Controller
             'chatbot'=>Chatbot::findorfail($id)
         ], $dados);
     }
-    public function listar() {
-        $dados['chatbot'] = Chatbot::all();
+    public function listarChatbotsProfessor() {
+        $autor = Auth::id();
+        $dados['chatbot'] = Chatbot::where('autor_id', $autor)->get();
         return view('Chatbot/listarChatbots', $dados);
     }
     public function listarChatbotsDeAcordoComCursoAluno() {
@@ -49,7 +50,6 @@ class ChatbotController extends Controller
     }
 
     public function salvarNovoChatBot(Request $request ){
-        //falta implementar view
         $autor = Auth::id();
         $request->merge([
             'autor_id' => $autor
